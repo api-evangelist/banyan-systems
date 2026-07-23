@@ -1,0 +1,42 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.banyan.com/docs/responses-and-errors
+docs:
+- https://developers.banyan.com/docs/getting-started
+- https://developers.banyan.com/docs/responses-and-errors
+- https://developers.banyan.com/docs/banyan-authentication
+authentication:
+  style: oauth2-client-credentials
+  header: 'Authorization: Bearer {access_token}'
+  ref: authentication/banyan-systems-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  example_path: /rest/v1/version
+  base_url: https://api.banyan.com
+error_envelope:
+  documented: true
+  shape: '{ "data": [<ELEMENT>], "errors": [<ERROR>] }'
+  success: errors array is empty, data holds results
+  failure: data empty, errors[] holds one or more ErrorJSON objects (key, message, validations[])
+  rfc9457: false
+  ref: errors/banyan-systems-problem-types.yml
+idempotency:
+  documented: false
+  note: No idempotency-key header or contract is documented in the public developer docs.
+pagination:
+  documented: partial
+  note: >-
+    Not a general cursor/offset scheme in docs. The consumer-history endpoint caps
+    responses at 1000 items and advances by re-requesting with the start date moved
+    past the last item returned (date-window paging).
+request_tracing:
+  documented: false
+rate_limiting:
+  documented: false
+data_ingress:
+  api: One-by-one JSON submission via POST to the REST API
+  batch: Batch submission supported in Parquet (snappy), Avro, TSV/CSV (gzip/lzo), and JSON
+event_egress:
+  webhooks: true
+  ref: asyncapi/banyan-systems-webhooks.yml

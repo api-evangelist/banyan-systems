@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.banyan.com/docs/getting-started
+versioning:
+  scheme: uri-path
+  current: v1
+  example: https://api.banyan.com/rest/v1/version
+  docs: https://developers.banyan.com/reference/version
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+  note: No public SLA / uptime target documented.
+status_page:
+  url: null
+  note: No status page found (status.banyan.com does not resolve).
+changelog: https://developers.banyan.com/changelog
+deprecated_operations: []

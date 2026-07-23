@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.banyan.com/docs/responses-and-errors
+format: custom-envelope
+docs: https://developers.banyan.com/docs/responses-and-errors
+envelope:
+  shape: '{ "data": [], "errors": [ ErrorJSON, ... ] }'
+  error_object: ErrorJSON
+  error_schema:
+    key:
+      type: object
+      description: A map of id field to id identifying the object the error is about.
+    message:
+      type: string
+      description: A human readable message describing the error.
+    validations:
+      type: array
+      items: ValidationJSON
+      description: Field-level validation failures.
+  rfc9457: false
+  note: >-
+    Banyan uses a consistent two-part response envelope for all requests. On failure
+    the data array is empty and the errors array is populated with one or more
+    ErrorJSON objects. This is a provider-specific envelope, not RFC 9457
+    application/problem+json.
+problems:
+- status: 401
+  title: Unauthorized / expired token
+  description: >-
+    Returned when the OAuth2 bearer token is missing or has expired (tokens expire
+    every 60 minutes). Re-call POST /oauth/token to obtain a fresh token.
+  source: https://developers.banyan.com/docs/banyan-authentication
+- status: 403
+  title: Forbidden (merchant-service-provider gated endpoint)
+  description: >-
+    Returned on the merchant-service-provider enriched-transaction retrieval
+    endpoint when the caller has not been designated by Banyan as a merchant
+    service provider.
+  source: https://developers.banyan.com/reference/retrieve-match-merchant-service-provider

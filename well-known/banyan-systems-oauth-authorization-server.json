@@ -1,0 +1,1 @@
+{"issuer":"https://api.banyan.com","token_endpoint":"https://api.banyan.com/oauth/token","grant_types_supported":["client_credentials"],"token_endpoint_auth_methods_supported":["client_secret_basic","client_secret_post"]}

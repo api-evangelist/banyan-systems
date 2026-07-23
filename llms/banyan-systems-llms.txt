@@ -1,0 +1,96 @@
+# Banyan Developer Documentation Documentation
+
+> Documentation for Banyan Developer Documentation
+
+## Guides
+- [Banyan Overview](https://developers.banyan.com/docs/getting-started.md)
+- [Authentication](https://developers.banyan.com/docs/banyan-authentication.md)
+- [Merchant Data Onboarding](https://developers.banyan.com/docs/merchant-onboarding.md)
+- [Retail Batch Recommended Field List](https://developers.banyan.com/docs/field-list.md)
+- [Hotel Batch Recommended Field List](https://developers.banyan.com/docs/hotel-batch-recommended-field-list.md)
+- [Batch Onboarding Options](https://developers.banyan.com/docs/batch-onboarding-options.md)
+- [API: POST Receipt Data](https://developers.banyan.com/docs/merchant-receipt-submission.md)
+- [API: GET Receipt](https://developers.banyan.com/docs/api-search-receipt.md): A valuable endpoint to retrieve receipts in the Banyan namespace
+- [Bank | Fintech Data Onboarding](https://developers.banyan.com/docs/financial-services-provider-data-onboarding.md): Steps to sending us data to be enriched
+- [Batch: Recommended Field List](https://developers.banyan.com/docs/recommended-field-list.md)
+- [Batch Onboarding Technology Options](https://developers.banyan.com/docs/batch-onboarding-technology-options.md)
+- [API: POST Transaction Data](https://developers.banyan.com/docs/post-transaction-data.md)
+- [Merchant Service Provider Data Onboarding](https://developers.banyan.com/docs/merchant-service-provider-data-onboarding.md)
+- [Batch: Recommended Field List](https://developers.banyan.com/docs/msp-batch-recommended-field-list.md)
+- [Batch Onboarding Technology Options](https://developers.banyan.com/docs/msp-batch-onboarding-technology-options.md)
+- [API: POST Transaction Data](https://developers.banyan.com/docs/api-post-transaction-data.md)
+- [Getting Started](https://developers.banyan.com/docs/get-started.md)
+- [Publisher Data Onboarding Guide](https://developers.banyan.com/docs/clo-data-onboarding-guide.md)
+- [API: POST Campaign](https://developers.banyan.com/docs/api-post-campaign.md)
+- [API: PATCH Campaign](https://developers.banyan.com/docs/api-patch-campaign.md)
+- [API: POST Offer](https://developers.banyan.com/docs/offer-details.md)
+- [API: PATCH Offer](https://developers.banyan.com/docs/api-patch-offer.md): Altering an existing offer's details
+- [API: GET Offer](https://developers.banyan.com/docs/api-get-offer.md): A way to validate the offer details Banyan is storing
+- [API: POST Offer Activation](https://developers.banyan.com/docs/offer-activation.md)
+- [API: PATCH Offer Activation](https://developers.banyan.com/docs/api-patch-offer-activation.md): Update the card last four list associated with a consumer token
+- [API: POST Transaction](https://developers.banyan.com/docs/transaction.md)
+- [Offer Creation FAQs](https://developers.banyan.com/docs/offer-faqs.md): How to navigate setting up your offers and campaigns
+- [Fulfillment Scenarios](https://developers.banyan.com/docs/fulfillment-scenarios.md)
+- [Enriched Transaction Egress](https://developers.banyan.com/docs/enriched-transaction-egress.md)
+- [Schema](https://developers.banyan.com/docs/enriched-transaction-schema.md): Descriptions of output fields
+- [API:GET Enriched Transaction](https://developers.banyan.com/docs/api-retrieval-etx.md)
+- [Offer Redemption Egress](https://developers.banyan.com/docs/offer-redemption-egress.md)
+- [API GET Offer Redemption](https://developers.banyan.com/docs/api-get-offer-redemption.md)
+- [FAQ Offer Redemption Data](https://developers.banyan.com/docs/faq-offer-redemption-data.md)
+- [Consumer Match Egress](https://developers.banyan.com/docs/consumer-match-egress.md)
+- [Schema](https://developers.banyan.com/docs/consumer-match-schema-cmx.md)
+- [CMX and ETX Sequencing Logic and Examples](https://developers.banyan.com/docs/cmx-and-etx-sequencing-logic-and-examples.md)
+- [Consumer Match Offer Redemption Egress](https://developers.banyan.com/docs/consumer-match-offer-redemption-egress.md)
+- [Schema](https://developers.banyan.com/docs/schema-1.md)
+- [Batch Egress Options](https://developers.banyan.com/docs/batch-egress-options.md)
+- [Webhook Egress](https://developers.banyan.com/docs/webhook-getting-started.md): What webhooks are and how to register them
+- [Banyan Event Types](https://developers.banyan.com/docs/event-types.md)
+- [Webhook Event Schema Definitions](https://developers.banyan.com/docs/webhook-event-schema-definitions.md)
+
+## API Reference
+- [Get a Bearer Token](https://developers.banyan.com/reference/oauth-token.md): Get a bearer token to use with subsequent calls.
+- [Get Version Information](https://developers.banyan.com/reference/version.md): Get version information for the service.  Useful for checking authentication.
+- [Retrieve All Campaigns](https://developers.banyan.com/reference/retrieve-all-campaigns.md): Return all campaigns for a partner
+- [Submit a Campaign](https://developers.banyan.com/reference/submit-a-campaign.md): Create a new campaign.
+- [Retrieve a Campaign](https://developers.banyan.com/reference/retrieve-a-campaign.md): Get a campaign via its Banyan Campaign ID.
+- [Update a Campaign](https://developers.banyan.com/reference/update-a-campaign.md): Update an existing campaign.
+- [Retrieve All Offers Under a Campaign](https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md): Get all offers that belong to a campaign.
+- [Search For an Offer](https://developers.banyan.com/reference/search-offer.md): Search for an offer by the publisher's offer ID.
+- [Submit an Offer](https://developers.banyan.com/reference/submit-an-offer.md): Submit an offer.
+- [Submit one or more of Offer Activation](https://developers.banyan.com/reference/submit-an-offer-activation.md): Submit multiple offer activations.
+- [Search For Offer Activations](https://developers.banyan.com/reference/search-offer-activations.md): Search for all offer activations corresponding to a consumer token.
+- [Retrieve an Offer Activation](https://developers.banyan.com/reference/retrieve-an-offer-activation.md): Get an offer activation
+- [Update an Offer Activation](https://developers.banyan.com/reference/update-an-offer-activation.md): Modify an existing offer activation.
+- [Retrieve an Offer](https://developers.banyan.com/reference/retrieve-an-offer.md): Get an offer.
+- [Update an Offer](https://developers.banyan.com/reference/update-an-offer.md): Modify an existing offer.
+- [Retrieve Offer Activations For Offer ID](https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md): Get all offer activations for a given banyan offer ID.
+- [Retrieve consumer history](https://developers.banyan.com/reference/retrieve-history.md): Get the history of data associated with a finx consumer token.  The default time range is from the beginning of time to now and the start and/or end of the range can be overridden.  This request is a POST because the time of request is a component in generating the response and the HTTP spec disallows caching POSTs so any caching proxies or clever HTTP request libraries should behave correctly.  The response is limited to 1000 items.  If more are expected request again with the start date advanced to after the last item returned.
+- [Submit one or more of hotel receipts](https://developers.banyan.com/reference/submit-hotel-receipts.md): Submit multiple hotel receipts for potential matching. See our [Recommended Field List](https://developers.banyan.com/docs/field-list) for more information about individual fields.
+- [Submit one or more of retail receipts](https://developers.banyan.com/reference/submit-retail-receipts.md): Submit multiple retail receipts for potential matching. See our [Recommended Field List](https://developers.banyan.com/docs/field-list) for more information about individual fields.
+- [Search for receipts](https://developers.banyan.com/reference/receipt-search.md): Allows Merchant Service Providers to search receipts by various criteria for a given merchant.
+- [Retrieve A Receipt](https://developers.banyan.com/reference/retrieve-a-receipt.md): Get a receipt via its Banyan Receipt ID.
+- [Execute a Tag Counter Query](https://developers.banyan.com/reference/execute-tag-counter-query.md): Execute a query to count items and receipts based on tag criteria for a merchant within a date range.
+- [Submit one or more transactions](https://developers.banyan.com/reference/submit-one-or-more-transactions.md): Submit multiple transactions for potential matching. See our [Recommended Field List](https://developers.banyan.com/docs/field-list) for more information about individual fields.
+- [Retrieve a Transaction](https://developers.banyan.com/reference/fetch-a-transaction.md): Get a transaction via its Banyan transaction ID
+- [Retrieve Enriched Transaction](https://developers.banyan.com/reference/retrieve-match.md): Get an enriched transaction via the Banyan Transaction ID
+- [Retrieve Offer Redemption](https://developers.banyan.com/reference/retrieve-offer-redemption.md): Get an offer redemption.
+- [Retrieve Offer Redemption History](https://developers.banyan.com/reference/retrieve-offer-redemption-history.md): When new transactions or receipts enter the Banyan platform, they can potentially change the result set for an offer redemption. Using this history endpoint shows you all of the statuses that a particular transaction had over time
+- [Retrieve Enriched Transaction](https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md): Get an enriched transaction with merchant specific information via the Banyan Transaction ID. If you have been designated by Banyan as a merchant service provider, you should use this endpoint to retrieve item level data tied to your transaction. Otherwise, you will get a 403 response on this endpoint. A successful response on this endpoint will include more information than the standard GET Enriched Transaction response.
+- [Create a Webhook Application if one doesn't exist](https://developers.banyan.com/reference/create-webhook-application.md): Create a Webhook Application if one doesn't exist
+- [Retrieve a list of all webhook endpoints for a partner](https://developers.banyan.com/reference/get-webhook-endpoints-all.md): Retrieve a list of all webhook endpoints for a partner
+- [Create a webhook endpoint](https://developers.banyan.com/reference/create-webhook-endpoint.md): Create a webhook endpoint
+- [Delete a webhook endpoint](https://developers.banyan.com/reference/delete-webhook-endpoint.md): Delete a webhook endpoint
+- [Retrieve a webhook endpoint](https://developers.banyan.com/reference/retrieve-webhook-endpoint.md): Retrieve a webhook endpoint
+- [Update a webhook endpoint](https://developers.banyan.com/reference/update-webhook-endpoint.md): Update a webhook endpoint for a partner
+- [Get Event Types provided by Banyan](https://developers.banyan.com/reference/get-webhook-event-types.md): Retrieve Event Types provided by Banyan
+- [Delete a Webhook Application if one exists](https://developers.banyan.com/reference/delete-webhook-application.md): Delete a Webhook Application if one exist
+- [Retrieve Webhook Application](https://developers.banyan.com/reference/retrieve-webhook-application.md): Retrieve Webhook Application ID
+- [ Create or update a consent](https://developers.banyan.com/reference/create-consent.md): Creates a consent record for a consumer or updates an existing one.  The consent record will be associated with the last provided email and phone number for the consumer.  The consent decision log will reflect the history of decisions sent in for that consumer.
+- [ Search for a Banyan Consent ID](https://developers.banyan.com/reference/search-consent.md): Search for a Banyan Consent ID.
+- [ Retrieve a Consent record by Banyan Consent ID](https://developers.banyan.com/reference/get-consent.md): Retrieve a consent record by Banyan Consent ID.
+
+## Changelog
+- [Duplication of Offers Now Available in Banyan Portal](https://developers.banyan.com/changelog/duplication-of-offers-now-available-in-banyan-portal.md)
+- [Split_Tender Field Now Available On Enriched Transaction Schema](https://developers.banyan.com/changelog/split_tender-field-now-available-on-enriched-transaction-schema.md)
+- [Offer Redemption History Endpoint](https://developers.banyan.com/changelog/new-offer-redemption-history-endpoint.md)
+- [Banyan Release Notes](https://developers.banyan.com/changelog/welcome-to-banyandocs.md)

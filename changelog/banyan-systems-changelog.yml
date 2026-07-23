@@ -1,0 +1,34 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.banyan.com/changelog
+scheme: dated-release-notes
+current_version: null
+note: >-
+  Banyan publishes dated release notes (no semantic versioning). Development slowed
+  after the March 2025 acquisition by Bilt Rewards; the most recent public entry is
+  over a year old as of this capture.
+entries:
+- title: Duplication of Offers Now Available in Banyan Portal
+  date_relative: over 1 year ago
+  author: Rachel Gavazzi
+  type: addition
+  highlight: The Banyan Portal now supports duplicating an existing offer.
+  url: https://developers.banyan.com/changelog/duplication-of-offers-now-available-in-banyan-portal
+- title: Split_Tender Field Now Available On Enriched Transaction Schema
+  date_relative: almost 2 years ago
+  author: Rachel Gavazzi
+  type: addition
+  highlight: New split_tender field added to the enriched transaction schema.
+  url: https://developers.banyan.com/changelog/split_tender-field-now-available-on-enriched-transaction-schema
+- title: Offer Redemption History Endpoint
+  date_relative: about 2 years ago
+  author: Rachel Gavazzi
+  type: addition
+  highlight: New endpoint for accessing offer redemption history over time.
+  url: https://developers.banyan.com/changelog/new-offer-redemption-history-endpoint
+- title: Banyan Release Notes
+  date_relative: about 5 years ago
+  author: Matthew Kumar
+  type: announcement
+  highlight: Foundational release-notes / welcome-to-banyandocs entry.
+  url: https://developers.banyan.com/changelog/welcome-to-banyandocs

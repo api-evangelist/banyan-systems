@@ -1,0 +1,94 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: https://developers.banyan.com/reference (documented REST operations; no published MCP server found)
+server:
+  name: banyan
+  transport: http
+  url: null
+  auth: 'OAuth2 client_credentials (Authorization: Bearer) against https://api.banyan.com'
+note: >-
+  No official hosted/remote MCP server was found for Banyan. This is a candidate tool
+  list derived one-to-one from the provider's documented REST API reference operations.
+tools:
+- name: get_version
+  description: Get version information for the service (auth check).
+  source_operation: https://developers.banyan.com/reference/version
+- name: submit_retail_receipts
+  description: Submit one or more retail receipts for potential matching.
+  source_operation: https://developers.banyan.com/reference/submit-retail-receipts
+- name: submit_hotel_receipts
+  description: Submit one or more hotel receipts for potential matching.
+  source_operation: https://developers.banyan.com/reference/submit-hotel-receipts
+- name: search_receipts
+  description: Search receipts by various criteria for a given merchant (MSP).
+  source_operation: https://developers.banyan.com/reference/receipt-search
+- name: retrieve_receipt
+  description: Get a receipt via its Banyan Receipt ID.
+  source_operation: https://developers.banyan.com/reference/retrieve-a-receipt
+- name: submit_transactions
+  description: Submit one or more transactions for potential matching.
+  source_operation: https://developers.banyan.com/reference/submit-one-or-more-transactions
+- name: retrieve_transaction
+  description: Get a transaction via its Banyan transaction ID.
+  source_operation: https://developers.banyan.com/reference/fetch-a-transaction
+- name: retrieve_enriched_transaction
+  description: Get an enriched (item-level) transaction via the Banyan Transaction ID.
+  source_operation: https://developers.banyan.com/reference/retrieve-match
+- name: retrieve_enriched_transaction_msp
+  description: Get an enriched transaction with merchant-specific detail (merchant service providers).
+  source_operation: https://developers.banyan.com/reference/retrieve-match-merchant-service-provider
+- name: execute_tag_counter_query
+  description: Count items and receipts by tag criteria for a merchant within a date range.
+  source_operation: https://developers.banyan.com/reference/execute-tag-counter-query
+- name: retrieve_all_campaigns
+  description: Return all CLO campaigns for a partner.
+  source_operation: https://developers.banyan.com/reference/retrieve-all-campaigns
+- name: submit_campaign
+  description: Create a new CLO campaign.
+  source_operation: https://developers.banyan.com/reference/submit-a-campaign
+- name: retrieve_campaign
+  description: Get a campaign via its Banyan Campaign ID.
+  source_operation: https://developers.banyan.com/reference/retrieve-a-campaign
+- name: update_campaign
+  description: Update an existing campaign.
+  source_operation: https://developers.banyan.com/reference/update-a-campaign
+- name: submit_offer
+  description: Submit an offer.
+  source_operation: https://developers.banyan.com/reference/submit-an-offer
+- name: search_offer
+  description: Search for an offer by the publisher's offer ID.
+  source_operation: https://developers.banyan.com/reference/search-offer
+- name: retrieve_offer
+  description: Get an offer.
+  source_operation: https://developers.banyan.com/reference/retrieve-an-offer
+- name: update_offer
+  description: Modify an existing offer.
+  source_operation: https://developers.banyan.com/reference/update-an-offer
+- name: submit_offer_activation
+  description: Submit one or more offer activations.
+  source_operation: https://developers.banyan.com/reference/submit-an-offer-activation
+- name: retrieve_offer_redemption
+  description: Get an offer redemption.
+  source_operation: https://developers.banyan.com/reference/retrieve-offer-redemption
+- name: retrieve_offer_redemption_history
+  description: Get the status history of an offer redemption over time.
+  source_operation: https://developers.banyan.com/reference/retrieve-offer-redemption-history
+- name: retrieve_consumer_history
+  description: Get the history of data associated with a FinX consumer token.
+  source_operation: https://developers.banyan.com/reference/retrieve-history
+- name: create_consent
+  description: Create or update a consumer consent record.
+  source_operation: https://developers.banyan.com/reference/create-consent
+- name: search_consent
+  description: Search for a Banyan Consent ID.
+  source_operation: https://developers.banyan.com/reference/search-consent
+- name: get_consent
+  description: Retrieve a consent record by Banyan Consent ID.
+  source_operation: https://developers.banyan.com/reference/get-consent
+- name: create_webhook_endpoint
+  description: Create a webhook endpoint for a partner.
+  source_operation: https://developers.banyan.com/reference/create-webhook-endpoint
+- name: get_webhook_event_types
+  description: Retrieve the event types provided by Banyan.
+  source_operation: https://developers.banyan.com/reference/get-webhook-event-types

@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: searched
+source: https://developers.banyan.com/docs/event-types
+type: Webhooks
+spec_type: Webhooks
+docs:
+- https://developers.banyan.com/docs/webhook-getting-started
+- https://developers.banyan.com/docs/event-types
+- https://developers.banyan.com/docs/webhook-event-schema-definitions
+summary:
+  transport: HTTP POST to partner-registered endpoints (webhook egress)
+  products:
+  - Enrich
+  - Confirm for CLO
+  registration: >-
+    Managed via REST: create a webhook application, then create/retrieve/update/delete
+    webhook endpoints per partner; event types are retrievable from the API.
+event_types:
+- name: enrich.enriched_transaction
+  product: Enrich
+  description: Provides the transaction you sent back to Banyan plus the receipt contents matched to it.
+- name: enrich.consumer_match
+  product: Enrich
+  description: Provides the FinX consumer token for the match plus the receipt matched to that token's attribute.
+- name: confirm.clo.offer_redemption_fulfilled
+  product: Confirm for CLO
+  description: Offer requirements were fulfilled and reward allowance remained for the user.
+- name: confirm.clo.offer_redemption_unfulfilled
+  product: Confirm for CLO
+  description: Offer requirements were not fulfilled or no reward allowance remained for the user.
+- name: confirm.clo.consumer_offer_redemption_fulfilled
+  product: Confirm for CLO
+  description: Consumer match record with offer details and result when receipt items qualified for the reward.
+- name: confirm.clo.consumer_offer_redemption_unfulfilled
+  product: Confirm for CLO
+  description: Consumer match record with offer details and result when no receipt items qualified for the reward.
+management_operations:
+- create-webhook-application
+- retrieve-webhook-application
+- delete-webhook-application
+- get-webhook-endpoints-all
+- create-webhook-endpoint
+- retrieve-webhook-endpoint
+- update-webhook-endpoint
+- delete-webhook-endpoint
+- get-webhook-event-types
