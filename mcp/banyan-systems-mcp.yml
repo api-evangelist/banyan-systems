@@ -7,9 +7,8 @@ server:
   transport: http
   url: null
   auth: 'OAuth2 client_credentials (Authorization: Bearer) against https://api.banyan.com'
-note: >-
-  No official hosted/remote MCP server was found for Banyan. This is a candidate tool
-  list derived one-to-one from the provider's documented REST API reference operations.
+note: No official hosted/remote MCP server was found for Banyan. This is a candidate tool list derived
+  one-to-one from the provider's documented REST API reference operations.
 tools:
 - name: get_version
   description: Get version information for the service (auth check).
@@ -92,3 +91,9 @@ tools:
 - name: get_webhook_event_types
   description: Retrieve the event types provided by Banyan.
   source_operation: https://developers.banyan.com/reference/get-webhook-event-types
+deployment:
+  mode: none
+  verified: derived
+  tools: 27
+  checked: '2026-08-12'
+  source: catalog MCP census
