@@ -46,6 +46,16 @@ tags:
 - Fintech
 - Payments
 - Data Collaboration
+- Webhook
+tags_raw:
+- Company
+- Receipt Data
+- Transaction Enrichment
+- Item-Level Data
+- Card-Linked Offers
+- Fintech
+- Payments
+- Data Collaboration
 - Webhooks
 apis:
 - name: Banyan API
