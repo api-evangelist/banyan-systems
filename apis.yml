@@ -15,6 +15,17 @@ description: >-
   developers.banyan.com exposes an OAuth2 REST API (api.banyan.com/rest/v1) plus
   a webhook egress surface for enriched transactions and offer redemptions.
 url: https://raw.githubusercontent.com/api-evangelist/banyan-systems/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
