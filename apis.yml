@@ -88,6 +88,8 @@ apis:
   - type: Authentication
     url: authentication/banyan-systems-authentication.yml
 common:
+- type: Website
+  url: https://www.banyan.com/
 - type: DeveloperPortal
   url: https://developers.banyan.com/docs
 - type: Documentation
