@@ -61,6 +61,7 @@ tags:
 - Payments
 - Data Collaboration
 - Webhook
+- Data Enrichment
 tags_raw:
 - Company
 - Receipt Data
@@ -71,6 +72,7 @@ tags_raw:
 - Payments
 - Data Collaboration
 - Webhooks
+- Data Enrichment
 apis:
 - name: Banyan API
   description: >-
