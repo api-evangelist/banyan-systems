@@ -1,0 +1,441 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/banyan-systems-rest-api-openapi.yml
+- openapi/banyan-systems-sensitive-data-vault-openapi.yml
+vocabulary:
+  name: Banyan Systems Domain Vocabulary
+  description: 'Terms declared by Banyan Systems''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: Error
+    definition: 'Object declared by the contract with fields: key, message, validations.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ErrorJSON
+  - term: The Banyan Standard Error Response
+    definition: 'Object declared by the contract with fields: data, errors, request_id.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ErrorResponseJSON
+  - term: ValidationJSON
+    definition: 'Object declared by the contract with fields: field, message, value.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ValidationJSON
+  - term: VersionDataJSON
+    definition: 'Object declared by the contract with fields: branch, build_date, commit_id, deploy_env, git_summary, is_gcp, service_name, version.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/VersionDataJSON
+  - term: VersionResultJSON
+    definition: 'Object declared by the contract with fields: data, errors.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/VersionResultJSON
+  - term: CampaignEgressJSON
+    definition: 'Object declared by the contract with fields: budget, byn_campaign_id, byn_publisher_id, created_ts, name, updated_ts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/CampaignEgressJSON
+  - term: CampaignIngressJSON
+    definition: 'Object declared by the contract with fields: budget, name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/CampaignIngressJSON
+  - term: OfferCriteriaEntityJSON
+    definition: 'Object declared by the contract with fields: amount_threshold, excl_sku, excl_tags, fulfillment_count_limit, incl_sku, incl_tags,
+      item_disqualification_expression, item_qualification_expression, order_types, repeat_amount.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferCriteriaEntityJSON
+  - term: OfferEntityJSON
+    definition: 'Object declared by the contract with fields: activation_window_minutes, allow_activation_after_purchase, always_on, amount_back_limit,
+      amount_back_per_dollar, amount_back_per_unit, amount_back_type, budget, byn_advertiser_id, byn_campaign_id, byn_offer_id, byn_publisher_id.
+      (13 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferEntityJSON
+  - term: OfferHotelCriteriaEntityJSON
+    definition: 'Object declared by the contract with fields: dining_excl_tags, dining_incl_tags, dining_spend_threshold, fulfillment_count_limit,
+      room_disqualification_expression, room_excl_tags, room_incl_tags, room_qualification_expression, room_spend_threshold.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferHotelCriteriaEntityJSON
+  - term: OrderType
+    definition: 'Enumeration declared by the contract with values: in_store, web.'
+    tags:
+    - Enumeration
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OrderType
+  - term: OfferCriteriaIngressJSON
+    definition: 'Object declared by the contract with fields: amount_threshold, excl_sku, excl_tags, fulfillment_count_limit, incl_sku, incl_tags,
+      item_disqualification_expression, item_qualification_expression, order_types.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferCriteriaIngressJSON
+  - term: OfferHotelCriteriaIngressJSON
+    definition: 'Object declared by the contract with fields: dining_excl_tags, dining_incl_tags, dining_spend_threshold, fulfillment_count_limit,
+      room_disqualification_expression, room_excl_tags, room_incl_tags, room_qualification_expression, room_spend_threshold.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferHotelCriteriaIngressJSON
+  - term: OfferIngressJSON
+    definition: 'Object declared by the contract with fields: activation_window_minutes, allow_activation_after_purchase, always_on, amount_back_limit,
+      amount_back_per_dollar, amount_back_per_unit, amount_back_type, budget, byn_advertiser_id, byn_campaign_id, card_issuer, card_types. (9
+      more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferIngressJSON
+  - term: OfferActivationEntityJSON
+    definition: 'Object declared by the contract with fields: byn_offer_activation_id, byn_offer_id, byn_publisher_id, cards, created_ts, publisher_consumer_token,
+      updated_ts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferActivationEntityJSON
+  - term: OfferActivationIngressJSON
+    definition: 'Object declared by the contract with fields: byn_offer_id, cards, publisher_consumer_token.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferActivationIngressJSON
+  - term: PatchOfferActivationInputJSON
+    definition: 'Object declared by the contract with fields: cards.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PatchOfferActivationInputJSON
+  - term: PatchOfferCriteriaInputJSON
+    definition: 'Object declared by the contract with fields: amount_threshold, excl_sku, excl_tags, fulfillment_count_limit, incl_sku, incl_tags,
+      item_disqualification_expression, item_qualification_expression, order_types, repeat_amount.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PatchOfferCriteriaInputJSON
+  - term: PatchOfferHotelCriteriaInputJSON
+    definition: 'Object declared by the contract with fields: dining_excl_tags, dining_incl_tags, dining_spend_threshold, fulfillment_count_limit,
+      room_disqualification_expression, room_excl_tags, room_incl_tags, room_qualification_expression, room_spend_threshold.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PatchOfferHotelCriteriaInputJSON
+  - term: PatchOfferInputJSON
+    definition: 'Object declared by the contract with fields: activation_window_minutes, allow_activation_after_purchase, always_on, amount_back_limit,
+      amount_back_per_dollar, amount_back_type, byn_advertiser_id, byn_campaign_id, card_issuer, card_types, currency, expiration_ts. (7 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PatchOfferInputJSON
+  - term: HistoryItemJSON
+    definition: 'Object declared by the contract with fields: created_ts, entity_id, entity_type.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HistoryItemJSON
+  - term: HistoryParametersJSON
+    definition: 'Object declared by the contract with fields: end_ts, finx_consumer_token, start_ts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HistoryParametersJSON
+  - term: AddressHotelJSON
+    definition: 'Object declared by the contract with fields: address_line_one, address_line_two, city, country, postal_code, state.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/AddressHotelJSON
+  - term: DiningItemHotelJSON
+    definition: 'Object declared by the contract with fields: amount, description, quantity.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/DiningItemHotelJSON
+  - term: EncryptedSensitiveDataHotelJSON
+    definition: 'Object declared by the contract with fields: data, dek, encryption_ts, kek_id, schema, schema_url.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/EncryptedSensitiveDataHotelJSON
+  - term: FulfillmentType
+    definition: 'Enumeration declared by the contract with values: ship, delivery, pickup.'
+    tags:
+    - Enumeration
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/FulfillmentType
+  - term: HotelDailyChargesHotelJSON
+    definition: 'Object declared by the contract with fields: credits, dining, fees, id, per_night_date, room, spa, tax.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelDailyChargesHotelJSON
+  - term: HotelDiningHotelJSON
+    definition: 'Object declared by the contract with fields: minibar, room_service_dining, room_service_dining_subtotal, room_service_dining_tax,
+      room_service_dining_tip, room_service_dining_total.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelDiningHotelJSON
+  - term: HotelFeesHotelJSON
+    definition: 'Object declared by the contract with fields: business_center, cancellation, incidental_cost, laundry, no_show, other_fees, parking,
+      resort, upgrade.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelFeesHotelJSON
+  - term: HotelReceiptHotelJSON
+    definition: 'Object declared by the contract with fields: daily_charges, guest_information, itinerary_number, reservation_date.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelReceiptHotelJSON
+  - term: HotelRoomHotelJSON
+    definition: 'Object declared by the contract with fields: description, rate, tags, type.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelRoomHotelJSON
+  - term: HotelTaxesHotelJSON
+    definition: 'Object declared by the contract with fields: city_occupancy, occupancy, other_taxes, state_occupancy, tourism.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelTaxesHotelJSON
+  - term: LocationHotelJSON
+    definition: 'Object declared by the contract with fields: address, card_acceptor_names, display_name, name, phone_number.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/LocationHotelJSON
+  - term: MerchantHotelJSON
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/MerchantHotelJSON
+  - term: PostReceiptIDJSON
+    definition: 'Object declared by the contract with fields: byn_receipt_id, merchant_receipt_id.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PostReceiptIDJSON
+  - term: ReceiptHotelJSON
+    definition: 'Object declared by the contract with fields: barcode_url, currency, custom_fields, fulfillment_type, hotel, image_url, location,
+      merchant, merchant_consumer_token, merchant_mid, merchant_receipt_id, merchant_total_amount. (4 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptHotelJSON
+  - term: ReceiptPaymentHotelJSON
+    definition: 'Object declared by the contract with fields: arn, auth_code, bin, card_issuer, card_last_four, cash_back_amount, is_virtual_card,
+      other_negative_amounts, other_positive_amounts, payment_account_reference, payment_type, scheme. (5 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptPaymentHotelJSON
+  - term: SpaChargeHotelJSON
+    definition: 'Object declared by the contract with fields: amount, description, quantity, tax, tip.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/SpaChargeHotelJSON
+  - term: AddressRetailJSON
+    definition: 'Object declared by the contract with fields: address_line_one, address_line_two, city, country, postal_code, state.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/AddressRetailJSON
+  - term: LocationRetailJSON
+    definition: 'Object declared by the contract with fields: address, card_acceptor_names, display_name, merchant_store_id, name, phone_number.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/LocationRetailJSON
+  - term: MerchantRetailJSON
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/MerchantRetailJSON
+  - term: ReceiptItemRetailJSON
+    definition: 'Object declared by the contract with fields: amount_paid, brand, description, discount_price_per_unit, full_price_per_unit, image_url,
+      merchant_item_id, quantity, sku, tags, unit_type, upc.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptItemRetailJSON
+  - term: ReceiptPaymentRetailJSON
+    definition: 'Object declared by the contract with fields: arn, auth_code, bin, card_issuer, card_last_four, cash_back_amount, is_virtual_card,
+      other_negative_amounts, other_positive_amounts, payment_account_reference, payment_type, scheme. (5 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptPaymentRetailJSON
+  - term: ReceiptRetailJSON
+    definition: 'Object declared by the contract with fields: barcode_url, currency, custom_fields, fulfillment_type, image_url, items, location,
+      merchant, merchant_consumer_token, merchant_mid, merchant_receipt_id, merchant_total_amount. (4 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptRetailJSON
+  - term: AddressMerchantJSON
+    definition: 'Object declared by the contract with fields: address_line_one, address_line_two, city, country, postal_code, state.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/AddressMerchantJSON
+  - term: DiningItemMerchantJSON
+    definition: 'Object declared by the contract with fields: amount, description, quantity.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/DiningItemMerchantJSON
+  - term: EncryptedSensitiveDataMerchantJSON
+    definition: 'Object declared by the contract with fields: data, dek, encryption_ts, kek_id, schema, schema_url.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/EncryptedSensitiveDataMerchantJSON
+  - term: HotelDailyChargesMerchantJSON
+    definition: 'Object declared by the contract with fields: credits, dining, fees, per_night_date, room, spa, tax.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelDailyChargesMerchantJSON
+  - term: HotelDiningMerchantJSON
+    definition: 'Object declared by the contract with fields: minibar, room_service_dining, room_service_dining_subtotal, room_service_dining_tax,
+      room_service_dining_tip, room_service_dining_total.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelDiningMerchantJSON
+  - term: HotelFeesMerchantJSON
+    definition: 'Object declared by the contract with fields: business_center, cancellation, incidental_cost, laundry, no_show, other_fees, parking,
+      resort, upgrade.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelFeesMerchantJSON
+  - term: HotelReceiptMerchantJSON
+    definition: 'Object declared by the contract with fields: daily_charges, guest_information, itinerary_number, reservation_date.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelReceiptMerchantJSON
+  - term: HotelRoomMerchantJSON
+    definition: 'Object declared by the contract with fields: description, rate, tags, type.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelRoomMerchantJSON
+  - term: HotelTaxesMerchantJSON
+    definition: 'Object declared by the contract with fields: city_occupancy, occupancy, other_taxes, state_occupancy, tourism.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelTaxesMerchantJSON
+  - term: LocationMerchantJSON
+    definition: 'Object declared by the contract with fields: address, card_acceptor_names, display_name, merchant_store_id, name, phone_number.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/LocationMerchantJSON
+  - term: MerchantMerchantJSON
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/MerchantMerchantJSON
+  - term: ReceiptItemMerchantJSON
+    definition: 'Object declared by the contract with fields: amount_paid, brand, byn_item_id, description, discount_price_per_unit, full_price_per_unit,
+      image_url, merchant_item_id, quantity, sku, tags, unit_type. (1 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptItemMerchantJSON
+  - term: ReceiptMerchantJSON
+    definition: 'Object declared by the contract with fields: barcode_url, byn_receipt_id, currency, custom_fields, fulfillment_type, hotel, image_url,
+      items, location, merchant, merchant_consumer_token, merchant_mid. (7 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptMerchantJSON
+  - term: ReceiptPaymentMerchantJSON
+    definition: 'Object declared by the contract with fields: arn, auth_code, bin, card_issuer, card_last_four, cash_back_amount, is_virtual_card,
+      other_negative_amounts, other_positive_amounts, payment_account_reference, payment_type, scheme. (5 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptPaymentMerchantJSON
+  - term: RxSearchMerchantJSON
+    definition: 'Object declared by the contract with fields: from, merchant_consumer_token, merchant_name, merchant_partner_id, to.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/RxSearchMerchantJSON
+  - term: SpaChargeMerchantJSON
+    definition: 'Object declared by the contract with fields: amount, description, quantity, tax, tip.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/SpaChargeMerchantJSON
+  - term: TagCounterDailyCountJSON
+    definition: 'Object declared by the contract with fields: date, item_count, last_updated, receipt_count.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TagCounterDailyCountJSON
+  - term: TagCounterQueryRequestJSON
+    definition: 'Object declared by the contract with fields: end_date, exclude_tags, include_tags, merchant_partner_id, start_date.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TagCounterQueryRequestJSON
+  - term: TagCounterQueryResponseJSON
+    definition: 'Object declared by the contract with fields: daily_counts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TagCounterQueryResponseJSON
+  - term: AddressIngressJSON
+    definition: 'Object declared by the contract with fields: address_line_one, address_line_two, city, country, postal_code, state.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/AddressIngressJSON
+  - term: LocationIngressJSON
+    definition: 'Object declared by the contract with fields: address, card_acceptor_names, display_name, merchant_store_id, name, phone_number.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/LocationIngressJSON
+  - term: MerchantIngressJSON
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/MerchantIngressJSON
+  - term: PostTransactionIDJSON
+    definition: 'Object declared by the contract with fields: byn_transaction_id, finx_transaction_id.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/PostTransactionIDJSON
+  - term: TransactionIngressJSON
+    definition: 'Object declared by the contract with fields: authorization_ts, custom_fields, description, finx_consumer_token, finx_transaction_id,
+      location, merchant, order_type, payment, purchase_ts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TransactionIngressJSON
+  - term: TransactionPaymentIngressJSON
+    definition: 'Object declared by the contract with fields: arn, auth_code, bin, card_issuer, card_last_four, card_type, currency, finx_mid,
+      payment_account_reference, payment_type, scheme, total_amount. (1 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TransactionPaymentIngressJSON
+  - term: AddressEgressJSON
+    definition: 'Object declared by the contract with fields: address_line_one, address_line_two, city, country, postal_code, state.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/AddressEgressJSON
+  - term: LocationEgressJSON
+    definition: 'Object declared by the contract with fields: address, card_acceptor_names, display_name, merchant_store_id, name, phone_number.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/LocationEgressJSON
+  - term: MerchantEgressJSON
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/MerchantEgressJSON
+  - term: TransactionEgressJSON
+    definition: 'Object declared by the contract with fields: authorization_ts, byn_transaction_id, custom_fields, description, finx_consumer_token,
+      finx_transaction_id, location, merchant, order_type, payment, purchase_ts, received_ts.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TransactionEgressJSON
+  - term: TransactionPaymentEgressJSON
+    definition: 'Object declared by the contract with fields: arn, auth_code, bin, card_issuer, card_last_four, card_type, currency, finx_mid,
+      payment_account_reference, payment_type, scheme, total_amount. (1 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TransactionPaymentEgressJSON
+  - term: BaseEnrichedTransactionEgressJSON
+    definition: 'Object declared by the contract with fields: byn_etx_id, confidence_interval, match_ts, split_tender, transaction.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/BaseEnrichedTransactionEgressJSON
+  - term: BaseReceiptEgressJSON
+    definition: 'Object declared by the contract with fields: barcode_url, byn_receipt_id, currency, custom_fields, fulfillment_type, hotel, image_url,
+      items, location, merchant, merchant_mid, merchant_receipt_id. (5 more)'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/BaseReceiptEgressJSON
+  - term: DiningItemEgressJSON
+    definition: 'Object declared by the contract with fields: amount, description, quantity.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/DiningItemEgressJSON
+  - term: EncryptedSensitiveDataEgressJSON
+    definition: 'Object declared by the contract with fields: data, dek, encryption_ts, kek_id, schema, schema_url.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/EncryptedSensitiveDataEgressJSON
+  - term: Enriched Transaction
+    definition: 'Object declared by the contract with fields: receipt.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/EnrichedTransactionEgressJSON
+  - term: HotelDailyChargesEgressJSON
+    definition: 'Object declared by the contract with fields: credits, dining, fees, per_night_date, room, spa, tax.'
+    tags:
+    - Object
+    source: openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/HotelDailyChargesEgressJSON

@@ -1,0 +1,15 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/banyan-systems-rest-api-openapi.yml, openapi/banyan-systems-sensitive-data-vault-openapi.yml
+schemes:
+- name: bearerToken
+  source: openapi/banyan-systems-rest-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth/token
+- name: bearerToken
+  source: openapi/banyan-systems-sensitive-data-vault-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth/token
+scopes: []

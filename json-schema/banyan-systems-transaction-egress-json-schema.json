@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-transaction-egress-json-schema.json",
+  "title": "TransactionEgressJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/TransactionEgressJSON",
+  "properties": {
+    "authorization_ts": {
+      "description": "The time at which the transaction was authorized in RFC3339 format. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "byn_transaction_id": {
+      "description": "The Banyan ID generated for the transaction",
+      "format": "uuid",
+      "type": "string"
+    },
+    "custom_fields": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Set of custom fields set on the transaction.",
+      "type": "object"
+    },
+    "description": {
+      "description": "Description of the transaction.",
+      "type": "string"
+    },
+    "finx_consumer_token": {
+      "description": "The merchant's token for the consumer.",
+      "type": "string"
+    },
+    "finx_transaction_id": {
+      "description": "The finx's internal ID for the transaction.",
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/$defs/LocationEgressJSON"
+    },
+    "merchant": {
+      "$ref": "#/$defs/MerchantEgressJSON"
+    },
+    "order_type": {
+      "$ref": "#/$defs/OrderType"
+    },
+    "payment": {
+      "$ref": "#/$defs/TransactionPaymentEgressJSON"
+    },
+    "purchase_ts": {
+      "description": "The time at which purchase occurred in RFC3339 format. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "received_ts": {
+      "description": "The time at which the receipt was received in RFC3339. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "byn_transaction_id",
+    "received_ts",
+    "finx_transaction_id"
+  ],
+  "type": "object",
+  "$defs": {
+    "AddressEgressJSON": {
+      "properties": {
+        "address_line_one": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "address_line_two": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "city": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "country": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "state": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LocationEgressJSON": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/AddressEgressJSON"
+        },
+        "card_acceptor_names": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "display_name": {
+          "description": "The banner name of the store of the purchase.",
+          "type": "string"
+        },
+        "merchant_store_id": {
+          "description": "The merchant's store identifier.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The legal/listed name of the store of the purchase.",
+          "type": "string"
+        },
+        "phone_number": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MerchantEgressJSON": {
+      "properties": {
+        "name": {
+          "description": "The business name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OrderType": {
+      "enum": [
+        "in_store",
+        "web"
+      ],
+      "type": "string"
+    },
+    "TransactionPaymentEgressJSON": {
+      "properties": {
+        "arn": {
+          "description": "A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.",
+          "type": "string"
+        },
+        "auth_code": {
+          "description": "Six digit alphanumeric code passed between banks that signal a transaction is possible.",
+          "type": "string"
+        },
+        "bin": {
+          "description": "Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.",
+          "type": "string"
+        },
+        "card_issuer": {
+          "description": "The card issuer for the card used on this payment.",
+          "type": "string"
+        },
+        "card_last_four": {
+          "description": "Last 4 digits on the debit/credit card.",
+          "type": "string"
+        },
+        "card_type": {
+          "description": "Card Type refers to the type of card offering from the card issuer.",
+          "type": "string"
+        },
+        "currency": {
+          "description": "The currency of the receipt.",
+          "type": "string"
+        },
+        "finx_mid": {
+          "description": "A unique ID for each POS, assigned by the finx.",
+          "type": "string"
+        },
+        "payment_account_reference": {
+          "description": "A 29 character payment account reference.",
+          "type": "string"
+        },
+        "payment_type": {
+          "description": "Credit card vs debit card transaction.",
+          "type": "string"
+        },
+        "scheme": {
+          "description": "The network the card was issued on.",
+          "type": "string"
+        },
+        "total_amount": {
+          "description": "Amount paid for goods/services.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "virtual_card_last_four": {
+          "description": "The last four digits of the virtual card used for the transaction.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

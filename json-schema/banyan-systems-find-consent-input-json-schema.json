@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-find-consent-input-json-schema.json",
+  "title": "FindConsentInputJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-sensitive-data-vault-openapi.yml#/components/schemas/FindConsentInputJSON",
+  "properties": {
+    "consumer_email": {
+      "type": "string"
+    },
+    "consumer_phone": {
+      "type": "string"
+    },
+    "finx_consumer_token": {
+      "type": "string"
+    },
+    "finx_partner_id": {
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

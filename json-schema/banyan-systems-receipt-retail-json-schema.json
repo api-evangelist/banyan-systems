@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-receipt-retail-json-schema.json",
+  "title": "ReceiptRetailJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptRetailJSON",
+  "properties": {
+    "barcode_url": {
+      "description": "The URL of the barcode for the receipt if available.",
+      "format": "uri",
+      "type": "string"
+    },
+    "currency": {
+      "description": "The currency of the receipt.",
+      "type": "string"
+    },
+    "custom_fields": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "fulfillment_type": {
+      "$ref": "#/$defs/FulfillmentType"
+    },
+    "image_url": {
+      "description": "The URL for the image of the receipt if available.",
+      "format": "uri",
+      "type": "string"
+    },
+    "items": {
+      "description": "List of the items on the receipt.",
+      "items": {
+        "$ref": "#/$defs/ReceiptItemRetailJSON"
+      },
+      "type": "array"
+    },
+    "location": {
+      "$ref": "#/$defs/LocationRetailJSON"
+    },
+    "merchant": {
+      "$ref": "#/$defs/MerchantRetailJSON"
+    },
+    "merchant_consumer_token": {
+      "description": "The consumer token provided by the merchant.",
+      "type": "string"
+    },
+    "merchant_mid": {
+      "description": "A unique ID for each POS, assigned by merchant bank.",
+      "type": "string"
+    },
+    "merchant_receipt_id": {
+      "description": "Your unique ID rendered for each sale.  This field will be the same for split tenders.",
+      "type": "string"
+    },
+    "merchant_total_amount": {
+      "description": "Total amount charged across all payment types.",
+      "format": "decimal",
+      "minLength": 1,
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "type": "string"
+    },
+    "order_ts": {
+      "description": "The time at which the order was placed with the merchant in RFC3339. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "order_type": {
+      "$ref": "#/$defs/OrderType"
+    },
+    "payments": {
+      "description": "List of payments made as part of the receipt.",
+      "items": {
+        "$ref": "#/$defs/ReceiptPaymentRetailJSON"
+      },
+      "type": "array"
+    },
+    "purchase_ts": {
+      "description": "The time at which the purchase occurred in RFC3339. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "merchant_receipt_id",
+    "purchase_ts"
+  ],
+  "type": "object",
+  "$defs": {
+    "AddressRetailJSON": {
+      "properties": {
+        "address_line_one": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "address_line_two": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "city": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "country": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "state": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "FulfillmentType": {
+      "enum": [
+        "ship",
+        "delivery",
+        "pickup"
+      ],
+      "type": "string"
+    },
+    "LocationRetailJSON": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/AddressRetailJSON"
+        },
+        "card_acceptor_names": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "display_name": {
+          "description": "The banner name of the store of the purchase.",
+          "type": "string"
+        },
+        "merchant_store_id": {
+          "description": "The merchant's store identifier.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The legal/listed name of the store of the purchase.",
+          "type": "string"
+        },
+        "phone_number": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MerchantRetailJSON": {
+      "properties": {
+        "name": {
+          "description": "The business name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OrderType": {
+      "enum": [
+        "in_store",
+        "web"
+      ],
+      "type": "string"
+    },
+    "ReceiptItemRetailJSON": {
+      "properties": {
+        "amount_paid": {
+          "description": "The amount paid for the item.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "brand": {
+          "description": "Brand of the item.",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "discount_price_per_unit": {
+          "description": "The amount paid for the item.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "full_price_per_unit": {
+          "description": "The regular price for the item specified in the item id.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "The URL for the image of the item, if available.",
+          "format": "uri",
+          "type": "string"
+        },
+        "merchant_item_id": {
+          "description": "Unique ID for the item sold in the transaction.",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "The number of the same items purchased.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "sku": {
+          "description": "Store specific ID of the item.",
+          "type": "string"
+        },
+        "tags": {
+          "description": "List of tags formatted as key-value pairs.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "unit_type": {
+          "description": "The unit of measure for the quantity.",
+          "type": "string"
+        },
+        "upc": {
+          "description": "Universal product code.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ReceiptPaymentRetailJSON": {
+      "properties": {
+        "arn": {
+          "description": "A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.",
+          "type": "string"
+        },
+        "auth_code": {
+          "description": "Six digit alphanumeric code passed between banks that signal a transaction is possible.",
+          "type": "string"
+        },
+        "bin": {
+          "description": "Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.",
+          "type": "string"
+        },
+        "card_issuer": {
+          "description": "The card issuer for the card used on this payment.",
+          "type": "string"
+        },
+        "card_last_four": {
+          "description": "Last 4 digits on the debit/credit card.",
+          "type": "string"
+        },
+        "cash_back_amount": {
+          "description": "Amount of cash back.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "is_virtual_card": {
+          "description": "Indicates whether the payment is virtual or not.",
+          "type": "boolean"
+        },
+        "other_negative_amounts": {
+          "description": "Any other amounts that are negative.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "other_positive_amounts": {
+          "description": "Any other amounts that are positive.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "payment_account_reference": {
+          "description": "A 29 character payment account reference.",
+          "type": "string"
+        },
+        "payment_type": {
+          "description": "Credit card vs debit card transaction.",
+          "type": "string"
+        },
+        "scheme": {
+          "description": "The network the card was issued on.",
+          "type": "string"
+        },
+        "shipping_amount": {
+          "description": "The amount paid to ship for a delivery fulfillment type.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "subtotal_amount": {
+          "description": "Total amount less tax amount less shipping less tip.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "tax_amount": {
+          "description": "Sales tax amount",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "tip_amount": {
+          "description": "Extra money for services rendered.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "total_amount": {
+          "description": "Amount paid for goods/services.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

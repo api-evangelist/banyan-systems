@@ -1,0 +1,529 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-receipt-hotel-json-schema.json",
+  "title": "ReceiptHotelJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/ReceiptHotelJSON",
+  "properties": {
+    "barcode_url": {
+      "description": "The URL of the barcode for the receipt if available.",
+      "format": "uri",
+      "type": "string"
+    },
+    "currency": {
+      "description": "The currency of the receipt.",
+      "type": "string"
+    },
+    "custom_fields": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "fulfillment_type": {
+      "$ref": "#/$defs/FulfillmentType"
+    },
+    "hotel": {
+      "$ref": "#/$defs/HotelReceiptHotelJSON"
+    },
+    "image_url": {
+      "description": "The URL for the image of the receipt if available.",
+      "format": "uri",
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/$defs/LocationHotelJSON"
+    },
+    "merchant": {
+      "$ref": "#/$defs/MerchantHotelJSON"
+    },
+    "merchant_consumer_token": {
+      "description": "The consumer token provided by the merchant.",
+      "type": "string"
+    },
+    "merchant_mid": {
+      "description": "A unique ID for each POS, assigned by merchant bank.",
+      "type": "string"
+    },
+    "merchant_receipt_id": {
+      "description": "Your unique ID rendered for each sale.  This field will be the same for split tenders.",
+      "type": "string"
+    },
+    "merchant_total_amount": {
+      "description": "Total amount charged across all payment types.",
+      "format": "decimal",
+      "minLength": 1,
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "type": "string"
+    },
+    "order_ts": {
+      "description": "The time at which the order was placed with the merchant in RFC3339. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "order_type": {
+      "$ref": "#/$defs/OrderType"
+    },
+    "payments": {
+      "description": "List of payments made as part of the receipt.",
+      "items": {
+        "$ref": "#/$defs/ReceiptPaymentHotelJSON"
+      },
+      "type": "array"
+    },
+    "purchase_ts": {
+      "description": "The time at which the purchase occurred in RFC3339. UTC if possible.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "merchant_receipt_id",
+    "purchase_ts"
+  ],
+  "type": "object",
+  "$defs": {
+    "AddressHotelJSON": {
+      "properties": {
+        "address_line_one": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "address_line_two": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "city": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "country": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        },
+        "state": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CurrencyAmount": {
+      "format": "decimal",
+      "minItems": 1,
+      "type": "string"
+    },
+    "DiningItemHotelJSON": {
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "description": {
+          "description": "Description of the item.",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "Quantity of the item.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "EncryptedSensitiveDataHotelJSON": {
+      "properties": {
+        "data": {
+          "format": "binary",
+          "type": "string"
+        },
+        "dek": {
+          "format": "binary",
+          "type": "string"
+        },
+        "encryption_ts": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "kek_id": {
+          "type": "string"
+        },
+        "schema": {
+          "type": "string"
+        },
+        "schema_url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kek_id",
+        "dek",
+        "data",
+        "encryption_ts"
+      ],
+      "type": "object"
+    },
+    "FulfillmentType": {
+      "enum": [
+        "ship",
+        "delivery",
+        "pickup"
+      ],
+      "type": "string"
+    },
+    "HotelDailyChargesHotelJSON": {
+      "properties": {
+        "credits": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "dining": {
+          "$ref": "#/$defs/HotelDiningHotelJSON"
+        },
+        "fees": {
+          "$ref": "#/$defs/HotelFeesHotelJSON"
+        },
+        "id": {
+          "description": "The Banyan ID generated for this charge.",
+          "type": "string"
+        },
+        "per_night_date": {
+          "description": "The date of the night the charge is for in RFC3339 format. UTC if possible.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "room": {
+          "$ref": "#/$defs/HotelRoomHotelJSON"
+        },
+        "spa": {
+          "description": "The spa charges during the day.",
+          "items": {
+            "$ref": "#/$defs/SpaChargeHotelJSON"
+          },
+          "type": "array"
+        },
+        "tax": {
+          "$ref": "#/$defs/HotelTaxesHotelJSON"
+        }
+      },
+      "required": [
+        "id",
+        "per_night_date"
+      ],
+      "type": "object"
+    },
+    "HotelDiningHotelJSON": {
+      "properties": {
+        "minibar": {
+          "description": "Itemized list of minibar items.",
+          "items": {
+            "$ref": "#/$defs/DiningItemHotelJSON"
+          },
+          "type": "array"
+        },
+        "room_service_dining": {
+          "description": "Itemized list of dining charges.",
+          "items": {
+            "$ref": "#/$defs/DiningItemHotelJSON"
+          },
+          "type": "array"
+        },
+        "room_service_dining_subtotal": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "room_service_dining_tax": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "room_service_dining_tip": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "room_service_dining_total": {
+          "$ref": "#/$defs/CurrencyAmount"
+        }
+      },
+      "type": "object"
+    },
+    "HotelFeesHotelJSON": {
+      "properties": {
+        "business_center": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "cancellation": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "incidental_cost": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "laundry": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "no_show": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "other_fees": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CurrencyAmount"
+          },
+          "description": "Map of names to fee amounts.",
+          "type": "object"
+        },
+        "parking": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "resort": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "upgrade": {
+          "$ref": "#/$defs/CurrencyAmount"
+        }
+      },
+      "type": "object"
+    },
+    "HotelReceiptHotelJSON": {
+      "properties": {
+        "daily_charges": {
+          "additionalProperties": {
+            "$ref": "#/$defs/HotelDailyChargesHotelJSON"
+          },
+          "description": "Object of the daily charges, keyed by the date for the charge.",
+          "type": "object"
+        },
+        "guest_information": {
+          "$ref": "#/$defs/EncryptedSensitiveDataHotelJSON"
+        },
+        "itinerary_number": {
+          "description": "Your unique ID rendered for each sale.",
+          "type": "string"
+        },
+        "reservation_date": {
+          "description": "The timestamp of the hotel reservation in RFC3339 format. UTC if possible.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "daily_charges"
+      ],
+      "type": "object"
+    },
+    "HotelRoomHotelJSON": {
+      "properties": {
+        "description": {
+          "description": "Long name for the room.",
+          "type": "string"
+        },
+        "rate": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "tags": {
+          "description": "List of tags formatted as key-value pairs.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "Type of bed.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "HotelTaxesHotelJSON": {
+      "properties": {
+        "city_occupancy": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "occupancy": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "other_taxes": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CurrencyAmount"
+          },
+          "description": "Map of names to tax amounts.",
+          "type": "object"
+        },
+        "state_occupancy": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "tourism": {
+          "$ref": "#/$defs/CurrencyAmount"
+        }
+      },
+      "type": "object"
+    },
+    "LocationHotelJSON": {
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/AddressHotelJSON"
+        },
+        "card_acceptor_names": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "display_name": {
+          "description": "The banner name of the store of the purchase.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The legal/listed name of the store of the purchase.",
+          "type": "string"
+        },
+        "phone_number": {
+          "description": "For brick and mortar transactions only.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MerchantHotelJSON": {
+      "properties": {
+        "name": {
+          "description": "The business name.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OrderType": {
+      "enum": [
+        "in_store",
+        "web"
+      ],
+      "type": "string"
+    },
+    "ReceiptPaymentHotelJSON": {
+      "properties": {
+        "arn": {
+          "description": "A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.",
+          "type": "string"
+        },
+        "auth_code": {
+          "description": "Six digit alphanumeric code passed between banks that signal a transaction is possible.",
+          "type": "string"
+        },
+        "bin": {
+          "description": "Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.",
+          "type": "string"
+        },
+        "card_issuer": {
+          "description": "The card issuer for the card used on this payment.",
+          "type": "string"
+        },
+        "card_last_four": {
+          "description": "Last 4 digits on the debit/credit card.",
+          "type": "string"
+        },
+        "cash_back_amount": {
+          "description": "Amount of cash back.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "is_virtual_card": {
+          "description": "Indicates whether the payment is virtual or not.",
+          "type": "boolean"
+        },
+        "other_negative_amounts": {
+          "description": "Any other amounts that are negative.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "other_positive_amounts": {
+          "description": "Any other amounts that are positive.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "payment_account_reference": {
+          "description": "A 29 character payment account reference.",
+          "type": "string"
+        },
+        "payment_type": {
+          "description": "Credit card vs debit card transaction.",
+          "type": "string"
+        },
+        "scheme": {
+          "description": "The network the card was issued on.",
+          "type": "string"
+        },
+        "shipping_amount": {
+          "description": "The amount paid to ship for a delivery fulfillment type.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "subtotal_amount": {
+          "description": "Total amount less tax amount less shipping less tip.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "tax_amount": {
+          "description": "Sales tax amount",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "tip_amount": {
+          "description": "Extra money for services rendered.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "total_amount": {
+          "description": "Amount paid for goods/services.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SpaChargeHotelJSON": {
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "tax": {
+          "$ref": "#/$defs/CurrencyAmount"
+        },
+        "tip": {
+          "$ref": "#/$defs/CurrencyAmount"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

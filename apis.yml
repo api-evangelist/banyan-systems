@@ -1,20 +1,17 @@
 aid: banyan-systems
+
 name: Banyan Systems
-description: >-
-  Banyan is a privacy-first, item-level receipt data infrastructure platform that
-  acts as middleware between merchants, banks, fintechs, and merchant service
-  providers so they can securely share and enrich transaction data without
-  bilateral contracts. Merchants send receipt and item detail to Banyan (via
-  REST API or batch), and financial institutions submit card transactions to be
-  matched and enriched with SKU-level line items, powering products like
-  card-linked offers (CLO), expense management, and receipt display inside
-  banking apps. Banyan has processed over 21 billion receipts across a network of
-  40,000+ merchant stores and 5,000+ financial institutions. Founded in 2013,
-  backed by Battery Ventures, Fin Capital, M13, TTV Capital and others, and
-  acquired by Bilt Rewards in March 2025. The public developer platform at
-  developers.banyan.com exposes an OAuth2 REST API (api.banyan.com/rest/v1) plus
-  a webhook egress surface for enriched transactions and offer redemptions.
+
+description: Banyan is a privacy-first, item-level receipt data infrastructure platform that acts as middleware between merchants, banks, fintechs,
+  and merchant service providers so they can securely share and enrich transaction data without bilateral contracts. Merchants send receipt and
+  item detail to Banyan (via REST API or batch), and financial institutions submit card transactions to be matched and enriched with SKU-level
+  line items, powering products like card-linked offers (CLO), expense management, and receipt display inside banking apps. Banyan has processed
+  over 21 billion receipts across a network of 40,000+ merchant stores and 5,000+ financial institutions. Founded in 2013, backed by Battery Ventures,
+  Fin Capital, M13, TTV Capital and others, and acquired by Bilt Rewards in March 2025. The public developer platform at developers.banyan.com
+  exposes an OAuth2 REST API (api.banyan.com/rest/v1) plus a webhook egress surface for enriched transactions and offer redemptions.
+
 url: https://raw.githubusercontent.com/api-evangelist/banyan-systems/refs/heads/main/apis.yml
+
 deliveryModel:
   model: unknown
   open_source: false
@@ -26,6 +23,7 @@ deliveryModel:
   - none
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -38,19 +36,32 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
+
 image: https://cdn.prod.website-files.com/64cf554e262e35556d264e52/66423c7fdfa3c29d470e52e2_Banyan%20Logo_OGI.png
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - battery-ventures
+
 x-tier: enriched
+
 x-tier-reason: portfolio-lead-enriched
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-18'
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-09-20
+
 tags:
 - Company
 - Receipt Data
@@ -62,6 +73,7 @@ tags:
 - Data Collaboration
 - Webhook
 - Data Enrichment
+
 tags_raw:
 - Company
 - Receipt Data
@@ -73,26 +85,32 @@ tags_raw:
 - Data Collaboration
 - Webhooks
 - Data Enrichment
-apis:
-- name: Banyan API
-  description: >-
-    Banyan's OAuth2 REST API for submitting receipt and transaction data,
-    retrieving enriched (item-level) transactions, managing card-linked-offer
-    campaigns/offers/activations, receipt search, consumer consent, and webhook
-    endpoint management. Base URL https://api.banyan.com with versioned paths
-    under /rest/v1.
-  humanURL: https://developers.banyan.com
-  baseURL: https://api.banyan.com
-  properties:
-  - type: Documentation
-    url: https://developers.banyan.com/docs
-  - type: APIReference
-    url: https://developers.banyan.com/reference
-  - type: GettingStarted
-    url: https://developers.banyan.com/docs/getting-started
-  - type: Authentication
-    url: authentication/banyan-systems-authentication.yml
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/banyan-systems-agentic-access.yml
+- type: Spectral
+  url: rules/banyan-systems-rules.yml
+- type: JSONLD
+  url: json-ld/banyan-systems-context.jsonld
+- type: Vocabulary
+  url: vocabulary/banyan-systems-vocabulary.yml
+- type: DataModel
+  url: data-model/banyan-systems-data-model.yml
+- type: Hosts
+  url: hosts/banyan-systems-hosts.yml
+- type: Vendors
+  url: vendors/banyan-systems-vendors.yml
+- type: Newsroom
+  url: https://www.banyan.com/press
+- type: OAuthScopes
+  url: scopes/banyan-systems-scopes.yml
 - type: Website
   url: https://www.banyan.com/
 - type: DeveloperPortal
@@ -127,20 +145,86 @@ common:
   url: asyncapi/banyan-systems-webhooks.yml
 - type: X-MCPServerCandidate
   url: mcp/banyan-systems-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/banyan-systems-llms.txt
 - type: WellKnown
   url: well-known/banyan-systems-well-known.yml
 - type: DomainSecurity
   url: security/banyan-systems-domain-security.yml
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-- FN: APIs.json
-  email: info@apis.io
+
+apis:
+- name: Banyan API
+  description: Banyan's OAuth2 REST API for submitting receipt and transaction data, retrieving enriched (item-level) transactions, managing card-linked-offer
+    campaigns/offers/activations, receipt search, consumer consent, and webhook endpoint management. Base URL https://api.banyan.com with versioned
+    paths under /rest/v1.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  properties:
+  - type: Documentation
+    url: https://developers.banyan.com/docs
+  - type: APIReference
+    url: https://developers.banyan.com/reference
+  - type: GettingStarted
+    url: https://developers.banyan.com/docs/getting-started
+  - type: Authentication
+    url: authentication/banyan-systems-authentication.yml
+  aid: banyan-systems:banyan-api
+- aid: banyan-systems:banyan-systems-rest-api
+  name: Banyan Systems Systems Rest API
+  description: The Systems Rest API from Banyan Systems — 28 operation(s) for systems rest.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Systems Rest
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-rest-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+- aid: banyan-systems:banyan-systems-sensitive-data-vault
+  name: Banyan Systems Systems Sensitive Data Vault Openapi.Yml API
+  description: The Systems Sensitive Data Vault Openapi.Yml API from Banyan Systems — 3 operation(s) for systems sensitive data vault openapi.yml.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Systems Sensitive Data Vault Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-sensitive-data-vault-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+
 x-enrichment:
   date: '2026-07-19'
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 40
+  tool: harvest-readme-openapi.py
+  portal: https://developers.banyan.com

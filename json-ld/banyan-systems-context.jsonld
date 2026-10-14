@@ -1,0 +1,1047 @@
+{
+  "@context": {
+    "@vocab": "https://banyan.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "banyan": "https://banyan.com/schema#",
+    "ErrorJSON": "banyan:ErrorJSON",
+    "key": {
+      "@id": "banyan:key"
+    },
+    "message": {
+      "@id": "banyan:message",
+      "@type": "xsd:string"
+    },
+    "validations": {
+      "@id": "banyan:validations",
+      "@container": "@list"
+    },
+    "ErrorResponseJSON": "banyan:ErrorResponseJSON",
+    "data": {
+      "@id": "banyan:data",
+      "@container": "@list"
+    },
+    "errors": {
+      "@id": "banyan:errors",
+      "@container": "@list"
+    },
+    "request_id": {
+      "@id": "banyan:request_id",
+      "@type": "xsd:string"
+    },
+    "ValidationJSON": "banyan:ValidationJSON",
+    "field": {
+      "@id": "banyan:field",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "banyan:value",
+      "@type": "@id"
+    },
+    "VersionDataJSON": "banyan:VersionDataJSON",
+    "branch": {
+      "@id": "banyan:branch",
+      "@type": "xsd:string"
+    },
+    "build_date": {
+      "@id": "banyan:build_date",
+      "@type": "xsd:string"
+    },
+    "commit_id": {
+      "@id": "banyan:commit_id",
+      "@type": "xsd:string"
+    },
+    "deploy_env": {
+      "@id": "banyan:deploy_env",
+      "@type": "xsd:string"
+    },
+    "git_summary": {
+      "@id": "banyan:git_summary",
+      "@type": "xsd:string"
+    },
+    "is_gcp": {
+      "@id": "banyan:is_gcp",
+      "@type": "xsd:boolean"
+    },
+    "service_name": {
+      "@id": "banyan:service_name",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "banyan:version",
+      "@type": "xsd:string"
+    },
+    "VersionResultJSON": "banyan:VersionResultJSON",
+    "CampaignEgressJSON": "banyan:CampaignEgressJSON",
+    "budget": {
+      "@id": "banyan:budget",
+      "@type": "xsd:integer"
+    },
+    "byn_campaign_id": {
+      "@id": "banyan:byn_campaign_id",
+      "@type": "xsd:string"
+    },
+    "byn_publisher_id": {
+      "@id": "banyan:byn_publisher_id",
+      "@type": "xsd:integer"
+    },
+    "created_ts": {
+      "@id": "banyan:created_ts",
+      "@type": "xsd:dateTime"
+    },
+    "name": {
+      "@id": "banyan:name",
+      "@type": "xsd:string"
+    },
+    "updated_ts": {
+      "@id": "banyan:updated_ts",
+      "@type": "xsd:dateTime"
+    },
+    "CampaignIngressJSON": "banyan:CampaignIngressJSON",
+    "OfferCriteriaEntityJSON": "banyan:OfferCriteriaEntityJSON",
+    "amount_threshold": {
+      "@id": "banyan:amount_threshold",
+      "@type": "xsd:string"
+    },
+    "excl_sku": {
+      "@id": "banyan:excl_sku",
+      "@container": "@list"
+    },
+    "excl_tags": {
+      "@id": "banyan:excl_tags",
+      "@container": "@list"
+    },
+    "fulfillment_count_limit": {
+      "@id": "banyan:fulfillment_count_limit",
+      "@type": "xsd:integer"
+    },
+    "incl_sku": {
+      "@id": "banyan:incl_sku",
+      "@container": "@list"
+    },
+    "incl_tags": {
+      "@id": "banyan:incl_tags",
+      "@container": "@list"
+    },
+    "item_disqualification_expression": {
+      "@id": "banyan:item_disqualification_expression",
+      "@type": "xsd:string"
+    },
+    "item_qualification_expression": {
+      "@id": "banyan:item_qualification_expression",
+      "@type": "xsd:string"
+    },
+    "order_types": {
+      "@id": "banyan:order_types",
+      "@container": "@list"
+    },
+    "repeat_amount": {
+      "@id": "banyan:repeat_amount",
+      "@type": "xsd:integer"
+    },
+    "OfferEntityJSON": "banyan:OfferEntityJSON",
+    "activation_window_minutes": {
+      "@id": "banyan:activation_window_minutes",
+      "@type": "xsd:integer"
+    },
+    "allow_activation_after_purchase": {
+      "@id": "banyan:allow_activation_after_purchase",
+      "@type": "xsd:boolean"
+    },
+    "always_on": {
+      "@id": "banyan:always_on",
+      "@type": "xsd:boolean"
+    },
+    "amount_back_limit": {
+      "@id": "banyan:amount_back_limit",
+      "@type": "xsd:string"
+    },
+    "amount_back_per_dollar": {
+      "@id": "banyan:amount_back_per_dollar",
+      "@type": "xsd:string"
+    },
+    "amount_back_per_unit": {
+      "@id": "banyan:amount_back_per_unit",
+      "@type": "xsd:string"
+    },
+    "amount_back_type": {
+      "@id": "banyan:amount_back_type",
+      "@type": "xsd:string"
+    },
+    "byn_advertiser_id": {
+      "@id": "banyan:byn_advertiser_id",
+      "@type": "xsd:integer"
+    },
+    "byn_offer_id": {
+      "@id": "banyan:byn_offer_id",
+      "@type": "xsd:string"
+    },
+    "card_issuer": {
+      "@id": "banyan:card_issuer",
+      "@type": "xsd:string"
+    },
+    "card_types": {
+      "@id": "banyan:card_types",
+      "@container": "@list"
+    },
+    "currency": {
+      "@id": "banyan:currency",
+      "@type": "xsd:string"
+    },
+    "expiration_ts": {
+      "@id": "banyan:expiration_ts",
+      "@type": "xsd:dateTime"
+    },
+    "offer_criteria": {
+      "@id": "banyan:offer_criteria",
+      "@type": "@id"
+    },
+    "offer_hotel_criteria": {
+      "@id": "banyan:offer_hotel_criteria",
+      "@type": "@id"
+    },
+    "prorate_qualified_spend": {
+      "@id": "banyan:prorate_qualified_spend",
+      "@type": "xsd:boolean"
+    },
+    "publisher_offer_id": {
+      "@id": "banyan:publisher_offer_id",
+      "@type": "xsd:string"
+    },
+    "return_receipt_detail": {
+      "@id": "banyan:return_receipt_detail",
+      "@type": "xsd:boolean"
+    },
+    "start_ts": {
+      "@id": "banyan:start_ts",
+      "@type": "xsd:dateTime"
+    },
+    "OfferHotelCriteriaEntityJSON": "banyan:OfferHotelCriteriaEntityJSON",
+    "dining_excl_tags": {
+      "@id": "banyan:dining_excl_tags",
+      "@container": "@list"
+    },
+    "dining_incl_tags": {
+      "@id": "banyan:dining_incl_tags",
+      "@container": "@list"
+    },
+    "dining_spend_threshold": {
+      "@id": "banyan:dining_spend_threshold",
+      "@type": "xsd:string"
+    },
+    "room_disqualification_expression": {
+      "@id": "banyan:room_disqualification_expression",
+      "@type": "xsd:string"
+    },
+    "room_excl_tags": {
+      "@id": "banyan:room_excl_tags",
+      "@container": "@list"
+    },
+    "room_incl_tags": {
+      "@id": "banyan:room_incl_tags",
+      "@container": "@list"
+    },
+    "room_qualification_expression": {
+      "@id": "banyan:room_qualification_expression",
+      "@type": "xsd:string"
+    },
+    "room_spend_threshold": {
+      "@id": "banyan:room_spend_threshold",
+      "@type": "xsd:string"
+    },
+    "OrderType": "banyan:OrderType",
+    "OfferCriteriaIngressJSON": "banyan:OfferCriteriaIngressJSON",
+    "OfferHotelCriteriaIngressJSON": "banyan:OfferHotelCriteriaIngressJSON",
+    "OfferIngressJSON": "banyan:OfferIngressJSON",
+    "OfferActivationEntityJSON": "banyan:OfferActivationEntityJSON",
+    "byn_offer_activation_id": {
+      "@id": "banyan:byn_offer_activation_id",
+      "@type": "xsd:string"
+    },
+    "cards": {
+      "@id": "banyan:cards",
+      "@container": "@list"
+    },
+    "publisher_consumer_token": {
+      "@id": "banyan:publisher_consumer_token",
+      "@type": "xsd:string"
+    },
+    "OfferActivationIngressJSON": "banyan:OfferActivationIngressJSON",
+    "PatchOfferActivationInputJSON": "banyan:PatchOfferActivationInputJSON",
+    "PatchOfferCriteriaInputJSON": "banyan:PatchOfferCriteriaInputJSON",
+    "PatchOfferHotelCriteriaInputJSON": "banyan:PatchOfferHotelCriteriaInputJSON",
+    "PatchOfferInputJSON": "banyan:PatchOfferInputJSON",
+    "HistoryItemJSON": "banyan:HistoryItemJSON",
+    "entity_id": {
+      "@id": "banyan:entity_id",
+      "@type": "xsd:string"
+    },
+    "entity_type": {
+      "@id": "banyan:entity_type",
+      "@type": "xsd:string"
+    },
+    "HistoryParametersJSON": "banyan:HistoryParametersJSON",
+    "end_ts": {
+      "@id": "banyan:end_ts",
+      "@type": "xsd:dateTime"
+    },
+    "finx_consumer_token": {
+      "@id": "banyan:finx_consumer_token",
+      "@type": "xsd:string"
+    },
+    "AddressHotelJSON": "banyan:AddressHotelJSON",
+    "address_line_one": {
+      "@id": "banyan:address_line_one",
+      "@type": "xsd:string"
+    },
+    "address_line_two": {
+      "@id": "banyan:address_line_two",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "banyan:city",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "banyan:country",
+      "@type": "xsd:string"
+    },
+    "postal_code": {
+      "@id": "banyan:postal_code",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "banyan:state",
+      "@type": "xsd:string"
+    },
+    "DiningItemHotelJSON": "banyan:DiningItemHotelJSON",
+    "amount": {
+      "@id": "banyan:amount",
+      "@type": "@id"
+    },
+    "description": {
+      "@id": "banyan:description",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "banyan:quantity",
+      "@type": "xsd:string"
+    },
+    "EncryptedSensitiveDataHotelJSON": "banyan:EncryptedSensitiveDataHotelJSON",
+    "dek": {
+      "@id": "banyan:dek",
+      "@type": "xsd:string"
+    },
+    "encryption_ts": {
+      "@id": "banyan:encryption_ts",
+      "@type": "xsd:dateTime"
+    },
+    "kek_id": {
+      "@id": "banyan:kek_id",
+      "@type": "xsd:string"
+    },
+    "schema_url": {
+      "@id": "banyan:schema_url",
+      "@type": "@id"
+    },
+    "FulfillmentType": "banyan:FulfillmentType",
+    "HotelDailyChargesHotelJSON": "banyan:HotelDailyChargesHotelJSON",
+    "credits": {
+      "@id": "banyan:credits",
+      "@type": "@id"
+    },
+    "dining": {
+      "@id": "banyan:dining",
+      "@type": "@id"
+    },
+    "fees": {
+      "@id": "banyan:fees",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "banyan:id",
+      "@type": "xsd:string"
+    },
+    "per_night_date": {
+      "@id": "banyan:per_night_date",
+      "@type": "xsd:dateTime"
+    },
+    "room": {
+      "@id": "banyan:room",
+      "@type": "@id"
+    },
+    "spa": {
+      "@id": "banyan:spa",
+      "@container": "@list"
+    },
+    "tax": {
+      "@id": "banyan:tax",
+      "@type": "@id"
+    },
+    "HotelDiningHotelJSON": "banyan:HotelDiningHotelJSON",
+    "minibar": {
+      "@id": "banyan:minibar",
+      "@container": "@list"
+    },
+    "room_service_dining": {
+      "@id": "banyan:room_service_dining",
+      "@container": "@list"
+    },
+    "room_service_dining_subtotal": {
+      "@id": "banyan:room_service_dining_subtotal",
+      "@type": "@id"
+    },
+    "room_service_dining_tax": {
+      "@id": "banyan:room_service_dining_tax",
+      "@type": "@id"
+    },
+    "room_service_dining_tip": {
+      "@id": "banyan:room_service_dining_tip",
+      "@type": "@id"
+    },
+    "room_service_dining_total": {
+      "@id": "banyan:room_service_dining_total",
+      "@type": "@id"
+    },
+    "HotelFeesHotelJSON": "banyan:HotelFeesHotelJSON",
+    "business_center": {
+      "@id": "banyan:business_center",
+      "@type": "@id"
+    },
+    "cancellation": {
+      "@id": "banyan:cancellation",
+      "@type": "@id"
+    },
+    "incidental_cost": {
+      "@id": "banyan:incidental_cost",
+      "@type": "@id"
+    },
+    "laundry": {
+      "@id": "banyan:laundry",
+      "@type": "@id"
+    },
+    "no_show": {
+      "@id": "banyan:no_show",
+      "@type": "@id"
+    },
+    "other_fees": {
+      "@id": "banyan:other_fees"
+    },
+    "parking": {
+      "@id": "banyan:parking",
+      "@type": "@id"
+    },
+    "resort": {
+      "@id": "banyan:resort",
+      "@type": "@id"
+    },
+    "upgrade": {
+      "@id": "banyan:upgrade",
+      "@type": "@id"
+    },
+    "HotelReceiptHotelJSON": "banyan:HotelReceiptHotelJSON",
+    "daily_charges": {
+      "@id": "banyan:daily_charges"
+    },
+    "guest_information": {
+      "@id": "banyan:guest_information",
+      "@type": "@id"
+    },
+    "itinerary_number": {
+      "@id": "banyan:itinerary_number",
+      "@type": "xsd:string"
+    },
+    "reservation_date": {
+      "@id": "banyan:reservation_date",
+      "@type": "xsd:dateTime"
+    },
+    "HotelRoomHotelJSON": "banyan:HotelRoomHotelJSON",
+    "rate": {
+      "@id": "banyan:rate",
+      "@type": "@id"
+    },
+    "tags": {
+      "@id": "banyan:tags",
+      "@container": "@list"
+    },
+    "type": {
+      "@id": "banyan:type",
+      "@type": "xsd:string"
+    },
+    "HotelTaxesHotelJSON": "banyan:HotelTaxesHotelJSON",
+    "city_occupancy": {
+      "@id": "banyan:city_occupancy",
+      "@type": "@id"
+    },
+    "occupancy": {
+      "@id": "banyan:occupancy",
+      "@type": "@id"
+    },
+    "other_taxes": {
+      "@id": "banyan:other_taxes"
+    },
+    "state_occupancy": {
+      "@id": "banyan:state_occupancy",
+      "@type": "@id"
+    },
+    "tourism": {
+      "@id": "banyan:tourism",
+      "@type": "@id"
+    },
+    "LocationHotelJSON": "banyan:LocationHotelJSON",
+    "address": {
+      "@id": "banyan:address",
+      "@type": "@id"
+    },
+    "card_acceptor_names": {
+      "@id": "banyan:card_acceptor_names",
+      "@container": "@list"
+    },
+    "display_name": {
+      "@id": "banyan:display_name",
+      "@type": "xsd:string"
+    },
+    "phone_number": {
+      "@id": "banyan:phone_number",
+      "@type": "xsd:string"
+    },
+    "MerchantHotelJSON": "banyan:MerchantHotelJSON",
+    "PostReceiptIDJSON": "banyan:PostReceiptIDJSON",
+    "byn_receipt_id": {
+      "@id": "banyan:byn_receipt_id",
+      "@type": "xsd:string"
+    },
+    "merchant_receipt_id": {
+      "@id": "banyan:merchant_receipt_id",
+      "@type": "xsd:string"
+    },
+    "ReceiptHotelJSON": "banyan:ReceiptHotelJSON",
+    "barcode_url": {
+      "@id": "banyan:barcode_url",
+      "@type": "@id"
+    },
+    "custom_fields": {
+      "@id": "banyan:custom_fields"
+    },
+    "fulfillment_type": {
+      "@id": "banyan:fulfillment_type",
+      "@type": "@id"
+    },
+    "hotel": {
+      "@id": "banyan:hotel",
+      "@type": "@id"
+    },
+    "image_url": {
+      "@id": "banyan:image_url",
+      "@type": "@id"
+    },
+    "location": {
+      "@id": "banyan:location",
+      "@type": "@id"
+    },
+    "merchant": {
+      "@id": "banyan:merchant",
+      "@type": "@id"
+    },
+    "merchant_consumer_token": {
+      "@id": "banyan:merchant_consumer_token",
+      "@type": "xsd:string"
+    },
+    "merchant_mid": {
+      "@id": "banyan:merchant_mid",
+      "@type": "xsd:string"
+    },
+    "merchant_total_amount": {
+      "@id": "banyan:merchant_total_amount",
+      "@type": "xsd:string"
+    },
+    "order_ts": {
+      "@id": "banyan:order_ts",
+      "@type": "xsd:dateTime"
+    },
+    "order_type": {
+      "@id": "banyan:order_type",
+      "@type": "@id"
+    },
+    "payments": {
+      "@id": "banyan:payments",
+      "@container": "@list"
+    },
+    "purchase_ts": {
+      "@id": "banyan:purchase_ts",
+      "@type": "xsd:dateTime"
+    },
+    "ReceiptPaymentHotelJSON": "banyan:ReceiptPaymentHotelJSON",
+    "arn": {
+      "@id": "banyan:arn",
+      "@type": "xsd:string"
+    },
+    "auth_code": {
+      "@id": "banyan:auth_code",
+      "@type": "xsd:string"
+    },
+    "bin": {
+      "@id": "banyan:bin",
+      "@type": "xsd:string"
+    },
+    "card_last_four": {
+      "@id": "banyan:card_last_four",
+      "@type": "xsd:string"
+    },
+    "cash_back_amount": {
+      "@id": "banyan:cash_back_amount",
+      "@type": "xsd:string"
+    },
+    "is_virtual_card": {
+      "@id": "banyan:is_virtual_card",
+      "@type": "xsd:boolean"
+    },
+    "other_negative_amounts": {
+      "@id": "banyan:other_negative_amounts",
+      "@type": "xsd:string"
+    },
+    "other_positive_amounts": {
+      "@id": "banyan:other_positive_amounts",
+      "@type": "xsd:string"
+    },
+    "payment_account_reference": {
+      "@id": "banyan:payment_account_reference",
+      "@type": "xsd:string"
+    },
+    "payment_type": {
+      "@id": "banyan:payment_type",
+      "@type": "xsd:string"
+    },
+    "scheme": {
+      "@id": "banyan:scheme",
+      "@type": "xsd:string"
+    },
+    "shipping_amount": {
+      "@id": "banyan:shipping_amount",
+      "@type": "xsd:string"
+    },
+    "subtotal_amount": {
+      "@id": "banyan:subtotal_amount",
+      "@type": "xsd:string"
+    },
+    "tax_amount": {
+      "@id": "banyan:tax_amount",
+      "@type": "xsd:string"
+    },
+    "tip_amount": {
+      "@id": "banyan:tip_amount",
+      "@type": "xsd:string"
+    },
+    "total_amount": {
+      "@id": "banyan:total_amount",
+      "@type": "xsd:string"
+    },
+    "SpaChargeHotelJSON": "banyan:SpaChargeHotelJSON",
+    "tip": {
+      "@id": "banyan:tip",
+      "@type": "@id"
+    },
+    "AddressRetailJSON": "banyan:AddressRetailJSON",
+    "LocationRetailJSON": "banyan:LocationRetailJSON",
+    "merchant_store_id": {
+      "@id": "banyan:merchant_store_id",
+      "@type": "xsd:string"
+    },
+    "MerchantRetailJSON": "banyan:MerchantRetailJSON",
+    "ReceiptItemRetailJSON": "banyan:ReceiptItemRetailJSON",
+    "amount_paid": {
+      "@id": "banyan:amount_paid",
+      "@type": "xsd:string"
+    },
+    "brand": {
+      "@id": "banyan:brand",
+      "@type": "xsd:string"
+    },
+    "discount_price_per_unit": {
+      "@id": "banyan:discount_price_per_unit",
+      "@type": "xsd:string"
+    },
+    "full_price_per_unit": {
+      "@id": "banyan:full_price_per_unit",
+      "@type": "xsd:string"
+    },
+    "merchant_item_id": {
+      "@id": "banyan:merchant_item_id",
+      "@type": "xsd:string"
+    },
+    "sku": {
+      "@id": "banyan:sku",
+      "@type": "xsd:string"
+    },
+    "unit_type": {
+      "@id": "banyan:unit_type",
+      "@type": "xsd:string"
+    },
+    "upc": {
+      "@id": "banyan:upc",
+      "@type": "xsd:string"
+    },
+    "ReceiptPaymentRetailJSON": "banyan:ReceiptPaymentRetailJSON",
+    "ReceiptRetailJSON": "banyan:ReceiptRetailJSON",
+    "items": {
+      "@id": "banyan:items",
+      "@container": "@list"
+    },
+    "AddressMerchantJSON": "banyan:AddressMerchantJSON",
+    "DiningItemMerchantJSON": "banyan:DiningItemMerchantJSON",
+    "EncryptedSensitiveDataMerchantJSON": "banyan:EncryptedSensitiveDataMerchantJSON",
+    "HotelDailyChargesMerchantJSON": "banyan:HotelDailyChargesMerchantJSON",
+    "HotelDiningMerchantJSON": "banyan:HotelDiningMerchantJSON",
+    "HotelFeesMerchantJSON": "banyan:HotelFeesMerchantJSON",
+    "HotelReceiptMerchantJSON": "banyan:HotelReceiptMerchantJSON",
+    "HotelRoomMerchantJSON": "banyan:HotelRoomMerchantJSON",
+    "HotelTaxesMerchantJSON": "banyan:HotelTaxesMerchantJSON",
+    "LocationMerchantJSON": "banyan:LocationMerchantJSON",
+    "MerchantMerchantJSON": "banyan:MerchantMerchantJSON",
+    "ReceiptItemMerchantJSON": "banyan:ReceiptItemMerchantJSON",
+    "byn_item_id": {
+      "@id": "banyan:byn_item_id",
+      "@type": "xsd:string"
+    },
+    "ReceiptMerchantJSON": "banyan:ReceiptMerchantJSON",
+    "received_ts": {
+      "@id": "banyan:received_ts",
+      "@type": "xsd:dateTime"
+    },
+    "ReceiptPaymentMerchantJSON": "banyan:ReceiptPaymentMerchantJSON",
+    "RxSearchMerchantJSON": "banyan:RxSearchMerchantJSON",
+    "from": {
+      "@id": "banyan:from",
+      "@type": "xsd:dateTime"
+    },
+    "merchant_name": {
+      "@id": "banyan:merchant_name",
+      "@type": "xsd:string"
+    },
+    "merchant_partner_id": {
+      "@id": "banyan:merchant_partner_id",
+      "@type": "xsd:integer"
+    },
+    "to": {
+      "@id": "banyan:to",
+      "@type": "xsd:dateTime"
+    },
+    "SpaChargeMerchantJSON": "banyan:SpaChargeMerchantJSON",
+    "TagCounterDailyCountJSON": "banyan:TagCounterDailyCountJSON",
+    "date": {
+      "@id": "banyan:date",
+      "@type": "xsd:dateTime"
+    },
+    "item_count": {
+      "@id": "banyan:item_count",
+      "@type": "xsd:integer"
+    },
+    "last_updated": {
+      "@id": "banyan:last_updated",
+      "@type": "xsd:dateTime"
+    },
+    "receipt_count": {
+      "@id": "banyan:receipt_count",
+      "@type": "xsd:integer"
+    },
+    "TagCounterQueryRequestJSON": "banyan:TagCounterQueryRequestJSON",
+    "end_date": {
+      "@id": "banyan:end_date",
+      "@type": "xsd:dateTime"
+    },
+    "exclude_tags": {
+      "@id": "banyan:exclude_tags",
+      "@container": "@list"
+    },
+    "include_tags": {
+      "@id": "banyan:include_tags",
+      "@container": "@list"
+    },
+    "start_date": {
+      "@id": "banyan:start_date",
+      "@type": "xsd:dateTime"
+    },
+    "TagCounterQueryResponseJSON": "banyan:TagCounterQueryResponseJSON",
+    "daily_counts": {
+      "@id": "banyan:daily_counts",
+      "@container": "@list"
+    },
+    "AddressIngressJSON": "banyan:AddressIngressJSON",
+    "LocationIngressJSON": "banyan:LocationIngressJSON",
+    "MerchantIngressJSON": "banyan:MerchantIngressJSON",
+    "PostTransactionIDJSON": "banyan:PostTransactionIDJSON",
+    "byn_transaction_id": {
+      "@id": "banyan:byn_transaction_id",
+      "@type": "xsd:string"
+    },
+    "finx_transaction_id": {
+      "@id": "banyan:finx_transaction_id",
+      "@type": "xsd:string"
+    },
+    "TransactionIngressJSON": "banyan:TransactionIngressJSON",
+    "authorization_ts": {
+      "@id": "banyan:authorization_ts",
+      "@type": "xsd:dateTime"
+    },
+    "payment": {
+      "@id": "banyan:payment",
+      "@type": "@id"
+    },
+    "TransactionPaymentIngressJSON": "banyan:TransactionPaymentIngressJSON",
+    "card_type": {
+      "@id": "banyan:card_type",
+      "@type": "xsd:string"
+    },
+    "finx_mid": {
+      "@id": "banyan:finx_mid",
+      "@type": "xsd:string"
+    },
+    "virtual_card_last_four": {
+      "@id": "banyan:virtual_card_last_four",
+      "@type": "xsd:string"
+    },
+    "AddressEgressJSON": "banyan:AddressEgressJSON",
+    "LocationEgressJSON": "banyan:LocationEgressJSON",
+    "MerchantEgressJSON": "banyan:MerchantEgressJSON",
+    "TransactionEgressJSON": "banyan:TransactionEgressJSON",
+    "TransactionPaymentEgressJSON": "banyan:TransactionPaymentEgressJSON",
+    "BaseEnrichedTransactionEgressJSON": "banyan:BaseEnrichedTransactionEgressJSON",
+    "byn_etx_id": {
+      "@id": "banyan:byn_etx_id",
+      "@type": "xsd:string"
+    },
+    "confidence_interval": {
+      "@id": "banyan:confidence_interval",
+      "@type": "xsd:string"
+    },
+    "match_ts": {
+      "@id": "banyan:match_ts",
+      "@type": "xsd:dateTime"
+    },
+    "split_tender": {
+      "@id": "banyan:split_tender",
+      "@type": "xsd:boolean"
+    },
+    "transaction": {
+      "@id": "banyan:transaction",
+      "@type": "@id"
+    },
+    "BaseReceiptEgressJSON": "banyan:BaseReceiptEgressJSON",
+    "DiningItemEgressJSON": "banyan:DiningItemEgressJSON",
+    "EncryptedSensitiveDataEgressJSON": "banyan:EncryptedSensitiveDataEgressJSON",
+    "EnrichedTransactionEgressJSON": "banyan:EnrichedTransactionEgressJSON",
+    "receipt": {
+      "@id": "banyan:receipt",
+      "@type": "@id"
+    },
+    "HotelDailyChargesEgressJSON": "banyan:HotelDailyChargesEgressJSON",
+    "HotelDiningEgressJSON": "banyan:HotelDiningEgressJSON",
+    "HotelFeesEgressJSON": "banyan:HotelFeesEgressJSON",
+    "HotelReceiptEgressJSON": "banyan:HotelReceiptEgressJSON",
+    "HotelRoomEgressJSON": "banyan:HotelRoomEgressJSON",
+    "HotelTaxesEgressJSON": "banyan:HotelTaxesEgressJSON",
+    "ReceiptHotelEgressJSON": "banyan:ReceiptHotelEgressJSON",
+    "ReceiptItemEgressJSON": "banyan:ReceiptItemEgressJSON",
+    "ReceiptMerchantEgressJSON": "banyan:ReceiptMerchantEgressJSON",
+    "ReceiptPaymentEgressJSON": "banyan:ReceiptPaymentEgressJSON",
+    "SpaChargeEgressJSON": "banyan:SpaChargeEgressJSON",
+    "BaseOfferRedemptionEgressJSON": "banyan:BaseOfferRedemptionEgressJSON",
+    "campaign": {
+      "@id": "banyan:campaign",
+      "@type": "@id"
+    },
+    "fulfillment_count": {
+      "@id": "banyan:fulfillment_count",
+      "@type": "xsd:integer"
+    },
+    "offer": {
+      "@id": "banyan:offer",
+      "@type": "@id"
+    },
+    "offer_activation": {
+      "@id": "banyan:offer_activation",
+      "@type": "@id"
+    },
+    "result": {
+      "@id": "banyan:result",
+      "@type": "@id"
+    },
+    "OfferActivationEgressJSON": "banyan:OfferActivationEgressJSON",
+    "OfferCriteriaEgressJSON": "banyan:OfferCriteriaEgressJSON",
+    "OfferEgressJSON": "banyan:OfferEgressJSON",
+    "OfferHotelCriteriaEgressJSON": "banyan:OfferHotelCriteriaEgressJSON",
+    "OfferRedemptionEgressJSON": "banyan:OfferRedemptionEgressJSON",
+    "enriched_transaction": {
+      "@id": "banyan:enriched_transaction",
+      "@type": "@id"
+    },
+    "OfferRedemptionHotelResultEgressJSON": "banyan:OfferRedemptionHotelResultEgressJSON",
+    "qualified_dining_charges": {
+      "@id": "banyan:qualified_dining_charges",
+      "@container": "@list"
+    },
+    "qualified_room_charges": {
+      "@id": "banyan:qualified_room_charges",
+      "@container": "@list"
+    },
+    "total_qualified_dining_spend": {
+      "@id": "banyan:total_qualified_dining_spend",
+      "@type": "xsd:string"
+    },
+    "total_qualified_room_spend": {
+      "@id": "banyan:total_qualified_room_spend",
+      "@type": "xsd:string"
+    },
+    "unqualified_dining_charges": {
+      "@id": "banyan:unqualified_dining_charges",
+      "@container": "@list"
+    },
+    "unqualified_room_charges": {
+      "@id": "banyan:unqualified_room_charges",
+      "@container": "@list"
+    },
+    "OfferRedemptionItemsResultEgressJSON": "banyan:OfferRedemptionItemsResultEgressJSON",
+    "qualified_ids": {
+      "@id": "banyan:qualified_ids",
+      "@container": "@list"
+    },
+    "qualified_total_amount": {
+      "@id": "banyan:qualified_total_amount",
+      "@type": "xsd:string"
+    },
+    "unqualified_ids": {
+      "@id": "banyan:unqualified_ids",
+      "@container": "@list"
+    },
+    "OfferRedemptionResultEgressJSON": "banyan:OfferRedemptionResultEgressJSON",
+    "amount_back": {
+      "@id": "banyan:amount_back",
+      "@type": "xsd:string"
+    },
+    "cumulative_qualified_total_amount": {
+      "@id": "banyan:cumulative_qualified_total_amount",
+      "@type": "xsd:string"
+    },
+    "fulfilled": {
+      "@id": "banyan:fulfilled",
+      "@type": "xsd:boolean"
+    },
+    "BaseEnrichedTransactionMerchantJSON": "banyan:BaseEnrichedTransactionMerchantJSON",
+    "EnrichedTransactionMerchantJSON": "banyan:EnrichedTransactionMerchantJSON",
+    "ApplicationIDJSON": "banyan:ApplicationIDJSON",
+    "application_id": {
+      "@id": "banyan:application_id",
+      "@type": "xsd:string"
+    },
+    "WebhookEndpointOutJSON": "banyan:WebhookEndpointOutJSON",
+    "channels": {
+      "@id": "banyan:channels",
+      "@container": "@list"
+    },
+    "createdAt": {
+      "@id": "banyan:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "disabled": {
+      "@id": "banyan:disabled",
+      "@type": "xsd:boolean"
+    },
+    "filterTypes": {
+      "@id": "banyan:filterTypes",
+      "@container": "@list"
+    },
+    "metadata": {
+      "@id": "banyan:metadata"
+    },
+    "rateLimit": {
+      "@id": "banyan:rateLimit",
+      "@type": "xsd:integer"
+    },
+    "uid": {
+      "@id": "banyan:uid",
+      "@type": "xsd:string"
+    },
+    "updatedAt": {
+      "@id": "banyan:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "url": {
+      "@id": "banyan:url",
+      "@type": "@id"
+    },
+    "WebhookEndpointInJSON": "banyan:WebhookEndpointInJSON",
+    "secret": {
+      "@id": "banyan:secret",
+      "@type": "xsd:string"
+    },
+    "WebhookEndpointIDJSON": "banyan:WebhookEndpointIDJSON",
+    "webhook_endpoint_id": {
+      "@id": "banyan:webhook_endpoint_id",
+      "@type": "xsd:string"
+    },
+    "WebhookEndpointUpdateJSON": "banyan:WebhookEndpointUpdateJSON",
+    "WebhookEventTypeOutJSON": "banyan:WebhookEventTypeOutJSON",
+    "archived": {
+      "@id": "banyan:archived",
+      "@type": "xsd:boolean"
+    },
+    "featureFlag": {
+      "@id": "banyan:featureFlag",
+      "@type": "xsd:string"
+    },
+    "schemas": {
+      "@id": "banyan:schemas"
+    },
+    "WebhookAppOutJSON": "banyan:WebhookAppOutJSON",
+    "ConsentAction": "banyan:ConsentAction",
+    "ConsentDecisionIngressJSON": "banyan:ConsentDecisionIngressJSON",
+    "action": {
+      "@id": "banyan:action",
+      "@type": "@id"
+    },
+    "consent_type": {
+      "@id": "banyan:consent_type",
+      "@type": "@id"
+    },
+    "reason": {
+      "@id": "banyan:reason",
+      "@type": "xsd:string"
+    },
+    "ConsentIngressJSON": "banyan:ConsentIngressJSON",
+    "consumer_email": {
+      "@id": "banyan:consumer_email",
+      "@type": "xsd:string"
+    },
+    "consumer_phone": {
+      "@id": "banyan:consumer_phone",
+      "@type": "xsd:string"
+    },
+    "log": {
+      "@id": "banyan:log",
+      "@container": "@list"
+    },
+    "ConsentType": "banyan:ConsentType",
+    "CreateConsentRecordIDJSON": "banyan:CreateConsentRecordIDJSON",
+    "byn_consent_id": {
+      "@id": "banyan:byn_consent_id",
+      "@type": "xsd:string"
+    },
+    "FindConsentInputJSON": "banyan:FindConsentInputJSON",
+    "finx_partner_id": {
+      "@id": "banyan:finx_partner_id",
+      "@type": "xsd:integer"
+    },
+    "FindConsentOutputJSON": "banyan:FindConsentOutputJSON",
+    "ConsentDecisionEgressJSON": "banyan:ConsentDecisionEgressJSON",
+    "ConsentEgressJSON": "banyan:ConsentEgressJSON"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Banyan Systems API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Banyan Systems's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/banyan-systems-rest-api-openapi.yml, openapi/banyan-systems-sensitive-data-vault-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/banyan-systems-rest-api-openapi.yml",
+    "openapi/banyan-systems-sensitive-data-vault-openapi.yml"
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-offer-entity-json-schema.json",
+  "title": "OfferEntityJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-rest-api-openapi.yml#/components/schemas/OfferEntityJSON",
+  "properties": {
+    "activation_window_minutes": {
+      "description": "Activation_Window_Minutes is the number of minutes the offer is active after the customer had activated it.",
+      "type": "integer"
+    },
+    "allow_activation_after_purchase": {
+      "description": "When enabled, will allow an offer activation to occur after a purchase has already been made.",
+      "type": "boolean"
+    },
+    "always_on": {
+      "description": "Enables the offer to be \"Always On\", whereby no activations are required and redemptions will be generated for all qualifying consumers from the publisher (transaction provider). Note: Allow Activation After Purchase must also be enabled when Always On is enabled.",
+      "type": "boolean"
+    },
+    "amount_back_limit": {
+      "description": "The limit of amount back rewards that can be awarded on a single offer redemption. Setting to 0 will enable no limit.",
+      "format": "decimal",
+      "minLength": 1,
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "type": "string"
+    },
+    "amount_back_per_dollar": {
+      "description": "The amount of rewards awarded per qualified dollar spent on the offer.",
+      "format": "decimal",
+      "minLength": 1,
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "type": "string"
+    },
+    "amount_back_per_unit": {
+      "description": "The amount of rewards awarded per qualified unit spent purchased.",
+      "format": "decimal",
+      "minLength": 1,
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "type": "string"
+    },
+    "amount_back_type": {
+      "description": "The type of the amount back award (e.g. DOLLARS, POINTS, etc.)",
+      "type": "string"
+    },
+    "budget": {
+      "description": "The total amount that can be spent on this offer during the offer's lifetime.",
+      "type": "integer"
+    },
+    "byn_advertiser_id": {
+      "description": "The Banyan ID for the advertiser (receipt provider) participating in the offer.",
+      "type": "integer"
+    },
+    "byn_campaign_id": {
+      "description": "The Banyan ID for the campaign this offer belongs to.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "byn_offer_id": {
+      "description": "The Banyan ID generated for this offer.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "byn_publisher_id": {
+      "description": "The Banyan ID for the publisher (transaction provider) owning the offer",
+      "type": "integer"
+    },
+    "card_issuer": {
+      "type": "string"
+    },
+    "card_types": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "created_ts": {
+      "description": "The timestamp the offer was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "description": "The currency code for amount back rewards (if in DOLLARS)",
+      "type": "string"
+    },
+    "expiration_ts": {
+      "description": "The timestamp at which the offer will no longer be eligible for fulfillment.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the offer given by the publisher.",
+      "type": "string"
+    },
+    "offer_criteria": {
+      "$ref": "#/$defs/OfferCriteriaEntityJSON"
+    },
+    "offer_hotel_criteria": {
+      "$ref": "#/$defs/OfferHotelCriteriaEntityJSON"
+    },
+    "prorate_qualified_spend": {
+      "description": "Allows the choice of overriding the default behavior to prorate qualified item spend. Default: true.",
+      "type": "boolean"
+    },
+    "publisher_offer_id": {
+      "description": "The offer ID given by the publisher.",
+      "type": "string"
+    },
+    "return_receipt_detail": {
+      "description": "Will enable the Offer Redemptions generated for this offer to include receipt details.",
+      "type": "boolean"
+    },
+    "start_ts": {
+      "description": "The timestamp at which the offer will be eligible for fulfillment.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "updated_ts": {
+      "description": "The timestamp the offer was last updated.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "byn_offer_id",
+    "byn_campaign_id",
+    "return_receipt_detail",
+    "always_on",
+    "byn_advertiser_id",
+    "byn_publisher_id",
+    "created_ts",
+    "updated_ts"
+  ],
+  "type": "object",
+  "$defs": {
+    "OfferCriteriaEntityJSON": {
+      "properties": {
+        "amount_threshold": {
+          "description": "The minimum amount of cumulative spend due to qualified items that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "excl_sku": {
+          "description": "(DEPRECATED, please use item_disqualification_expression instead. SKUs set on this field will automatically be combined with excl_tags into an expression string on item_disqualification_expression) The SKU's that will disqualify an item from the offer. Has priority over included SKU's and included tags. Leaving this empty will mean no SKU's are disqualified by default.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "excl_tags": {
+          "description": "(DEPRECATED, please use item_disqualification_expression instead. Tags set on this field will automatically be combined with excl_sku into an expression string on item_disqualification_expression) The tags that will disqualify an item from the offer. Has priority over included tags, but is trumped by included SKU's. Leaving this empty will mean no tags are disqualified by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "fulfillment_count_limit": {
+          "description": "The maximum number of times an offer can be marked as fulfilled for a single activation.",
+          "type": "integer"
+        },
+        "incl_sku": {
+          "description": "(DEPRECATED, please use item_qualification_expression instead. SKUs set on this field will automatically be combined with incl_tags into an expression string on item_qualification_expression) The SKU's that will qualify an item for the offer. Has priority over excluded tags. Leaving this empty will mean all SKU's qualify by default.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "incl_tags": {
+          "description": "(DEPRECATED, please use item_qualification_expression instead. Tags set on this field will automatically be combined with incl_sku into an expression string on item_qualification_expression) The tags that will qualify an item for the offer. Is trumped by excluded SKU's and excluded tags. Leaving this empty will mean all tags qualify by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "item_disqualification_expression": {
+          "description": "The expression string to be applied to an item's tags and sku when determining disqualification. Has priority over item qualification expression. Leaving this empty will mean items aren't disqualified by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.",
+          "type": "string"
+        },
+        "item_qualification_expression": {
+          "description": "The expression string to be applied to an item's tags and sku when determining qualification. Is trumped by the item disqualification expression. Leaving this empty will mean item qualifies by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.",
+          "type": "string"
+        },
+        "order_types": {
+          "description": "The order types that qualify for the offer (e.g. in_store, web)",
+          "items": {
+            "$ref": "#/$defs/OrderType"
+          },
+          "type": "array"
+        },
+        "repeat_amount": {
+          "description": "(DEPRECATED, please use fulfillment_count_limit instead) The amount of times an offer can be fulfilled for a single activation following the first.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "OfferHotelCriteriaEntityJSON": {
+      "properties": {
+        "dining_excl_tags": {
+          "description": "The tags that will disqualify a dining charge from the offer. Has priority over included dining charge tags. Leaving this empty will mean none of a dining charge's tags are disqualified by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dining_incl_tags": {
+          "description": "The tags that will qualify a dining charge for the offer. Is trumped by excluded dining charge tags. Leaving this empty will mean all of a dining charge's tags qualify by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dining_spend_threshold": {
+          "description": "The minimum amount of cumulative spend due to qualified dining charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        "fulfillment_count_limit": {
+          "description": "The maximum number of times an offer can be marked as fulfilled for a single activation.",
+          "type": "integer"
+        },
+        "room_disqualification_expression": {
+          "description": "The expression string to be applied to a room charge's tags when determining disqualification. Has priority over qualification expression. Leaving this empty will mean no tags are disqualified by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.",
+          "type": "string"
+        },
+        "room_excl_tags": {
+          "description": "(DEPRECATED, please use room_disqualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_disqualification_expression) The tags that will disqualify a room charge from the offer. Has priority over included room charge tags. Leaving this empty will mean none of a room charge's tags are disqualified by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "room_incl_tags": {
+          "description": "(DEPRECATED, please use room_qualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_qualification_expression) The tags that will qualify a room charge for the offer. Is trumped by excluded room charge tags. Leaving this empty will mean all of a room charge's tags qualify by default.",
+          "items": {
+            "description": "A key-value pair that represents some form of tagged information.",
+            "minLength": 5,
+            "pattern": "^.+:\\|:.+$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "room_qualification_expression": {
+          "description": "The expression string to be applied to a room charge's tags when determining qualification. Is trumped by disqualification expression. Leaving this empty will mean all tags qualify by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.",
+          "type": "string"
+        },
+        "room_spend_threshold": {
+          "description": "The minimum amount of cumulative spend due to qualified room charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.",
+          "format": "decimal",
+          "minLength": 1,
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OrderType": {
+      "enum": [
+        "in_store",
+        "web"
+      ],
+      "type": "string"
+    }
+  }
+}

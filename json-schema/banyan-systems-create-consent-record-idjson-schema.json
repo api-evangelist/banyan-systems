@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-create-consent-record-idjson-schema.json",
+  "title": "CreateConsentRecordIDJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-sensitive-data-vault-openapi.yml#/components/schemas/CreateConsentRecordIDJSON",
+  "properties": {
+    "byn_consent_id": {
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "byn_consent_id"
+  ],
+  "type": "object"
+}

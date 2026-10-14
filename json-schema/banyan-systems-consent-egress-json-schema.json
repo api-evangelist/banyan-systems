@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/banyan-systems/main/json-schema/banyan-systems-consent-egress-json-schema.json",
+  "title": "ConsentEgressJSON",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/banyan-systems-sensitive-data-vault-openapi.yml#/components/schemas/ConsentEgressJSON",
+  "properties": {
+    "byn_consent_id": {
+      "description": "The Banyan ID generated for the consent",
+      "format": "uuid",
+      "type": "string"
+    },
+    "finx_consumer_token": {
+      "type": "string"
+    },
+    "finx_partner_id": {
+      "type": "integer"
+    },
+    "log": {
+      "description": "The log of consumer consent decisions",
+      "items": {
+        "$ref": "#/$defs/ConsentDecisionEgressJSON"
+      },
+      "type": "array"
+    },
+    "merchant_partner_id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "byn_consent_id",
+    "finx_partner_id",
+    "merchant_partner_id",
+    "finx_consumer_token",
+    "log"
+  ],
+  "type": "object",
+  "$defs": {
+    "ConsentAction": {
+      "enum": [
+        "grant",
+        "revoke"
+      ],
+      "type": "string"
+    },
+    "ConsentDecisionEgressJSON": {
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ConsentAction"
+        },
+        "consent_type": {
+          "$ref": "#/$defs/ConsentType"
+        },
+        "created_ts": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "consent_type",
+        "action",
+        "created_ts"
+      ],
+      "type": "object"
+    },
+    "ConsentType": {
+      "enum": [
+        "talk to support"
+      ],
+      "type": "string"
+    }
+  }
+}
