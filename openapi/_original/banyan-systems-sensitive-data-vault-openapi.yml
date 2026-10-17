@@ -1,3 +1,5 @@
+# x-archived-from: banyan-systems-sensitive-data-vault-openapi.yml
+# x-archived-on: 2026-10-16
 info:
   description: Endpoints that handle sensitive data in Banyan's systems
   title: Banyan Sensitive Data Vault

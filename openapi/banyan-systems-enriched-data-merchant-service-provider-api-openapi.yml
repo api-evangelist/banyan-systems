@@ -1,0 +1,1037 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Enriched Data - Merchant Service Provider API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Enriched Data - Merchant Service Provider
+paths:
+  /v1/transaction/{byn_transaction_id}/enriched-merchant:
+    get:
+      description: Get an enriched transaction with merchant specific information via the Banyan Transaction ID. If you have been designated by Banyan as a merchant service provider, you should use this endpoint to retrieve item level data tied to your transaction. Otherwise, you will get a 403 response on this endpoint. A successful response on this endpoint will include more information than the standard GET Enriched Transaction response.
+      operationId: retrieve-match-merchant-service-provider
+      parameters:
+      - description: The Banyan Transaction ID to retrieve a match record for.
+        in: path
+        name: byn_transaction_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/EnrichedTransactionMerchantJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The enriched transaction with merchant specific information.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The enriched transaction was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Enriched Transaction
+      tags:
+      - Enriched Data - Merchant Service Provider
+components:
+  schemas:
+    MerchantMerchantJSON:
+      properties:
+        name:
+          description: The business name.
+          example: PicklesRUS
+          type: string
+      type: object
+    TransactionEgressJSON:
+      properties:
+        authorization_ts:
+          description: The time at which the transaction was authorized in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        byn_transaction_id:
+          description: The Banyan ID generated for the transaction
+          example: 218823ba-3fec-483b-8803-8c04f7e10d7f
+          format: uuid
+          type: string
+        custom_fields:
+          additionalProperties:
+            type: string
+          description: Set of custom fields set on the transaction.
+          type: object
+        description:
+          description: Description of the transaction.
+          example: Purchase of pickles at Tommy's Pickles.
+          type: string
+        finx_consumer_token:
+          description: The merchant's token for the consumer.
+          example: 5ASD32K2L34FA
+          type: string
+        finx_transaction_id:
+          description: The finx's internal ID for the transaction.
+          example: 5LA3LQKLR34L23L2
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationEgressJSON'
+        merchant:
+          $ref: '#/components/schemas/MerchantEgressJSON'
+        order_type:
+          $ref: '#/components/schemas/OrderType'
+        payment:
+          $ref: '#/components/schemas/TransactionPaymentEgressJSON'
+        purchase_ts:
+          description: The time at which purchase occurred in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        received_ts:
+          description: The time at which the receipt was received in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_transaction_id
+      - received_ts
+      - finx_transaction_id
+      type: object
+    HotelDiningMerchantJSON:
+      properties:
+        minibar:
+          description: Itemized list of minibar items.
+          items:
+            $ref: '#/components/schemas/DiningItemMerchantJSON'
+          type: array
+        room_service_dining:
+          description: Itemized list of dining charges.
+          items:
+            $ref: '#/components/schemas/DiningItemMerchantJSON'
+          type: array
+        room_service_dining_subtotal:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_tax:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_tip:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_total:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    MerchantEgressJSON:
+      properties:
+        name:
+          description: The business name.
+          example: PicklesRUS
+          type: string
+      type: object
+    AddressMerchantJSON:
+      properties:
+        address_line_one:
+          description: For brick and mortar transactions only.
+          example: 100 Main Street
+          type: string
+        address_line_two:
+          description: For brick and mortar transactions only.
+          example: Suite 100
+          type: string
+        city:
+          description: For brick and mortar transactions only.
+          example: Holmdel
+          type: string
+        country:
+          description: For brick and mortar transactions only.
+          example: USA
+          type: string
+        postal_code:
+          description: For brick and mortar transactions only.
+          example: '07733'
+          type: string
+        state:
+          description: For brick and mortar transactions only.
+          example: NJ
+          type: string
+      type: object
+    EnrichedTransactionMerchantJSON:
+      allOf:
+      - $ref: '#/components/schemas/BaseEnrichedTransactionMerchantJSON'
+      properties:
+        transaction:
+          $ref: '#/components/schemas/TransactionEgressJSON'
+      title: Merchant Enriched Transaction
+      type: object
+    FulfillmentType:
+      enum:
+      - ship
+      - delivery
+      - pickup
+      type: string
+    OrderType:
+      enum:
+      - in_store
+      - web
+      type: string
+    LocationMerchantJSON:
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressMerchantJSON'
+        card_acceptor_names:
+          items:
+            type: string
+          type: array
+        display_name:
+          description: The banner name of the store of the purchase.
+          example: Pickles R US
+          type: string
+        merchant_store_id:
+          description: The merchant's store identifier.
+          example: '123456789'
+          type: string
+        name:
+          description: The legal/listed name of the store of the purchase.
+          example: 'Pickles R US #122333'
+          type: string
+        phone_number:
+          description: For brick and mortar transactions only.
+          example: 555-555-5555
+          type: string
+      type: object
+    HotelReceiptMerchantJSON:
+      properties:
+        daily_charges:
+          additionalProperties:
+            $ref: '#/components/schemas/HotelDailyChargesMerchantJSON'
+          description: Object of the daily charges, keyed by the date for the charge.
+          type: object
+        guest_information:
+          $ref: '#/components/schemas/EncryptedSensitiveDataMerchantJSON'
+        itinerary_number:
+          description: Your unique ID rendered for each sale.
+          example: '120394032820'
+          type: string
+        reservation_date:
+          description: The timestamp of the hotel reservation in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - daily_charges
+      type: object
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    ReceiptMerchantJSON:
+      properties:
+        barcode_url:
+          description: The URL of the barcode for the receipt if available.
+          example: https://www.example.com/pickles/receipts/barcode/2
+          format: uri
+          type: string
+        byn_receipt_id:
+          description: The Banyan ID generated for the receipt.
+          example: 966a675d-ffcd-42f1-9fef-0e5f4e16a9ef
+          format: uuid
+          type: string
+        currency:
+          description: The currency of the receipt.
+          example: USD
+          type: string
+        custom_fields:
+          additionalProperties:
+            type: string
+          type: object
+        fulfillment_type:
+          $ref: '#/components/schemas/FulfillmentType'
+        hotel:
+          $ref: '#/components/schemas/HotelReceiptMerchantJSON'
+        image_url:
+          description: The URL for the image of the receipt if available.
+          example: https://www.example.com/pickles/receipts/2
+          format: uri
+          type: string
+        items:
+          description: List of the items on the receipt.
+          items:
+            $ref: '#/components/schemas/ReceiptItemMerchantJSON'
+          type: array
+        location:
+          $ref: '#/components/schemas/LocationMerchantJSON'
+        merchant:
+          $ref: '#/components/schemas/MerchantMerchantJSON'
+        merchant_consumer_token:
+          description: The consumer token provided by the merchant.
+          example: 5ASD32K2L34FA
+          type: string
+        merchant_mid:
+          description: A unique ID for each POS, assigned by merchant bank.
+          example: '1234567890'
+          type: string
+        merchant_receipt_id:
+          description: Your unique ID rendered for each sale.  This field will be the same for split tenders.
+          example: '1234567890'
+          type: string
+        merchant_total_amount:
+          description: Total amount charged across all payment types.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        order_ts:
+          description: The time at which the order was placed with the merchant in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:50Z'
+          format: date-time
+          type: string
+        order_type:
+          $ref: '#/components/schemas/OrderType'
+        payments:
+          description: List of payments made as part of the receipt.
+          items:
+            $ref: '#/components/schemas/ReceiptPaymentMerchantJSON'
+          type: array
+        purchase_ts:
+          description: The time at which the purchase occurred in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        received_ts:
+          description: The time at which the receipt was received in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_receipt_id
+      - merchant_receipt_id
+      type: object
+    AddressEgressJSON:
+      properties:
+        address_line_one:
+          description: For brick and mortar transactions only.
+          example: 100 Main Street
+          type: string
+        address_line_two:
+          description: For brick and mortar transactions only.
+          example: Suite 100
+          type: string
+        city:
+          description: For brick and mortar transactions only.
+          example: Holmdel
+          type: string
+        country:
+          description: For brick and mortar transactions only.
+          example: USA
+          type: string
+        postal_code:
+          description: For brick and mortar transactions only.
+          example: '07733'
+          type: string
+        state:
+          description: For brick and mortar transactions only.
+          example: NJ
+          type: string
+      type: object
+    ReceiptPaymentMerchantJSON:
+      properties:
+        arn:
+          description: A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.
+          example: '12345678901234567890123'
+          type: string
+        auth_code:
+          description: Six digit alphanumeric code passed between banks that signal a transaction is possible.
+          example: '482920'
+          type: string
+        bin:
+          description: Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.
+          example: '918202'
+          type: string
+        card_issuer:
+          description: The card issuer for the card used on this payment.
+          type: string
+        card_last_four:
+          description: Last 4 digits on the debit/credit card.
+          example: '2393'
+          type: string
+        cash_back_amount:
+          description: Amount of cash back.
+          example: '0.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        is_virtual_card:
+          description: Indicates whether the payment is virtual or not.
+          type: boolean
+        other_negative_amounts:
+          description: Any other amounts that are negative.
+          example: '13.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        other_positive_amounts:
+          description: Any other amounts that are positive.
+          example: '12.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        payment_account_reference:
+          description: A 29 character payment account reference.
+          type: string
+        payment_type:
+          description: Credit card vs debit card transaction.
+          example: debit
+          type: string
+        scheme:
+          description: The network the card was issued on.
+          example: VI
+          type: string
+        shipping_amount:
+          description: The amount paid to ship for a delivery fulfillment type.
+          example: '4.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        subtotal_amount:
+          description: Total amount less tax amount less shipping less tip.
+          example: '92.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tax_amount:
+          description: Sales tax amount
+          example: '8.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tip_amount:
+          description: Extra money for services rendered.
+          example: '0.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        total_amount:
+          description: Amount paid for goods/services.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    HotelDailyChargesMerchantJSON:
+      properties:
+        credits:
+          $ref: '#/components/schemas/CurrencyAmount'
+        dining:
+          $ref: '#/components/schemas/HotelDiningMerchantJSON'
+        fees:
+          $ref: '#/components/schemas/HotelFeesMerchantJSON'
+        per_night_date:
+          description: The date of the night the charge is for in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        room:
+          $ref: '#/components/schemas/HotelRoomMerchantJSON'
+        spa:
+          description: The spa charges during the day.
+          items:
+            $ref: '#/components/schemas/SpaChargeMerchantJSON'
+          type: array
+        tax:
+          $ref: '#/components/schemas/HotelTaxesMerchantJSON'
+      required:
+      - per_night_date
+      type: object
+    HotelFeesMerchantJSON:
+      properties:
+        business_center:
+          $ref: '#/components/schemas/CurrencyAmount'
+        cancellation:
+          $ref: '#/components/schemas/CurrencyAmount'
+        incidental_cost:
+          $ref: '#/components/schemas/CurrencyAmount'
+        laundry:
+          $ref: '#/components/schemas/CurrencyAmount'
+        no_show:
+          $ref: '#/components/schemas/CurrencyAmount'
+        other_fees:
+          additionalProperties:
+            $ref: '#/components/schemas/CurrencyAmount'
+          description: Map of names to fee amounts.
+          type: object
+        parking:
+          $ref: '#/components/schemas/CurrencyAmount'
+        resort:
+          $ref: '#/components/schemas/CurrencyAmount'
+        upgrade:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    BaseEnrichedTransactionMerchantJSON:
+      properties:
+        byn_etx_id:
+          description: The Banyan ID generated for the enriched transaction.
+          example: dc75ce5d-ea6f-4d79-ae4d-f11981a8f62e
+          format: uuid
+          type: string
+        confidence_interval:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        match_ts:
+          description: The time at which the match occurred.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        receipt:
+          $ref: '#/components/schemas/ReceiptMerchantJSON'
+      required:
+      - match_ts
+      - receipt
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+    HotelRoomMerchantJSON:
+      properties:
+        description:
+          description: Long name for the room.
+          example: King with Balcony and Ocean View
+          type: string
+        rate:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tags:
+          description: List of tags formatted as key-value pairs.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        type:
+          description: Type of bed.
+          example: King Suite
+          type: string
+      type: object
+    ReceiptItemMerchantJSON:
+      properties:
+        amount_paid:
+          description: The amount paid for the item.
+          example: '13.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        brand:
+          description: Brand of the item.
+          example: Tommy's Pickles
+          type: string
+        byn_item_id:
+          description: The Banyan ID generated for the item.
+          example: 4994c4d1-28df-453c-9df4-f9ec8a3ba689
+          format: uuid
+          type: string
+        description:
+          example: Gallon Half Sour Pickles
+          type: string
+        discount_price_per_unit:
+          description: The amount paid for the item.
+          example: '13.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        full_price_per_unit:
+          description: The regular price for the item specified in the item id.
+          example: '15.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        image_url:
+          description: The URL for the image of the item, if available.
+          example: https://www.example.com/pickles/items/123425/image
+          format: uri
+          type: string
+        merchant_item_id:
+          description: Unique ID for the item sold in the transaction.
+          example: '123408'
+          type: string
+        quantity:
+          description: The number of the same items purchased.
+          example: '2'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        sku:
+          description: Store specific ID of the item.
+          example: '123425'
+          type: string
+        tags:
+          description: List of tags formatted as key-value pairs.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        unit_type:
+          description: The unit of measure for the quantity.
+          example: each
+          type: string
+        upc:
+          description: Universal product code.
+          example: '4563226115636'
+          type: string
+      type: object
+    SpaChargeMerchantJSON:
+      properties:
+        amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        description:
+          type: string
+        quantity:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tax:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tip:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    EncryptedSensitiveDataMerchantJSON:
+      properties:
+        data:
+          format: binary
+          type: string
+        dek:
+          format: binary
+          type: string
+        encryption_ts:
+          format: date-time
+          type: string
+        kek_id:
+          type: string
+        schema:
+          type: string
+        schema_url:
+          format: uri
+          type: string
+      required:
+      - kek_id
+      - dek
+      - data
+      - encryption_ts
+      type: object
+    LocationEgressJSON:
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressEgressJSON'
+        card_acceptor_names:
+          items:
+            type: string
+          type: array
+        display_name:
+          description: The banner name of the store of the purchase.
+          example: Pickles R US
+          type: string
+        merchant_store_id:
+          description: The merchant's store identifier.
+          example: '123456789'
+          type: string
+        name:
+          description: The legal/listed name of the store of the purchase.
+          example: 'Pickles R US #122333'
+          type: string
+        phone_number:
+          description: For brick and mortar transactions only.
+          example: 555-555-5555
+          type: string
+      type: object
+    DiningItemMerchantJSON:
+      properties:
+        amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        description:
+          description: Description of the item.
+          example: Diet Coke
+          type: string
+        quantity:
+          description: Quantity of the item.
+          example: '2'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    TransactionPaymentEgressJSON:
+      properties:
+        arn:
+          description: A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.
+          example: '12345678901234567890123'
+          type: string
+        auth_code:
+          description: Six digit alphanumeric code passed between banks that signal a transaction is possible.
+          example: '482920'
+          type: string
+        bin:
+          description: Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.
+          example: '918202'
+          type: string
+        card_issuer:
+          description: The card issuer for the card used on this payment.
+          type: string
+        card_last_four:
+          description: Last 4 digits on the debit/credit card.
+          example: '2393'
+          type: string
+        card_type:
+          description: Card Type refers to the type of card offering from the card issuer.
+          type: string
+        currency:
+          description: The currency of the receipt.
+          example: USD
+          type: string
+        finx_mid:
+          description: A unique ID for each POS, assigned by the finx.
+          example: '1234567890'
+          type: string
+        payment_account_reference:
+          description: A 29 character payment account reference.
+          type: string
+        payment_type:
+          description: Credit card vs debit card transaction.
+          example: debit
+          type: string
+        scheme:
+          description: The network the card was issued on.
+          example: VI
+          type: string
+        total_amount:
+          description: Amount paid for goods/services.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        virtual_card_last_four:
+          description: The last four digits of the virtual card used for the transaction.
+          example: '1234'
+          type: string
+      type: object
+    CurrencyAmount:
+      format: decimal
+      minItems: 1
+      type: string
+    HotelTaxesMerchantJSON:
+      properties:
+        city_occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        other_taxes:
+          additionalProperties:
+            $ref: '#/components/schemas/CurrencyAmount'
+          description: Map of names to tax amounts.
+          type: object
+        state_occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tourism:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0

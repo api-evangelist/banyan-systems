@@ -1,0 +1,369 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Tag Counter API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Tag Counter
+paths:
+  /v1/tagcounter/query:
+    post:
+      description: Execute a query to count items and receipts based on tag criteria for a merchant within a date range.
+      operationId: execute-tag-counter-query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCounterQueryRequestJSON'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/TagCounterQueryResponseJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The query results.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was not valid.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Execute a Tag Counter Query
+      tags:
+      - Tag Counter
+components:
+  schemas:
+    TagCounterQueryRequestJSON:
+      properties:
+        end_date:
+          format: date-time
+          type: string
+        exclude_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        include_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        merchant_partner_id:
+          type: integer
+        start_date:
+          format: date-time
+          type: string
+      required:
+      - merchant_partner_id
+      - start_date
+      - end_date
+      - include_tags
+      - exclude_tags
+      type: object
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    TagCounterQueryResponseJSON:
+      properties:
+        daily_counts:
+          items:
+            $ref: '#/components/schemas/TagCounterDailyCountJSON'
+          type: array
+      required:
+      - daily_counts
+      type: object
+    TagCounterDailyCountJSON:
+      properties:
+        date:
+          format: date-time
+          type: string
+        item_count:
+          type: integer
+        last_updated:
+          format: date-time
+          type: string
+        receipt_count:
+          type: integer
+      required:
+      - date
+      - item_count
+      - receipt_count
+      - last_updated
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0

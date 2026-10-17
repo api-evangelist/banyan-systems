@@ -1,0 +1,45 @@
+{
+  "provider": "banyan-systems",
+  "sources": [
+    "banyan-systems-sensitive-data-vault-openapi.yml",
+    "banyan-systems-rest-api-openapi.yml"
+  ],
+  "outputs": [
+    "banyan-systems-consent-api-openapi.yml",
+    "banyan-systems-authentication-api-openapi.yml",
+    "banyan-systems-card-linked-offer-api-openapi.yml",
+    "banyan-systems-enriched-data-api-openapi.yml",
+    "banyan-systems-enriched-data-merchant-service-provider-api-openapi.yml",
+    "banyan-systems-history-api-openapi.yml",
+    "banyan-systems-receipt-api-openapi.yml",
+    "banyan-systems-tag-counter-api-openapi.yml",
+    "banyan-systems-transaction-api-openapi.yml",
+    "banyan-systems-webhook-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation",
+    "archived openapi/banyan-systems-sensitive-data-vault-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [
+    "banyan-systems-rest-api-openapi.yml: previously refined output kept for 37 operation(s) no archived document covers (e.g. /oauth/token post, /v1/campaign get, /v1/campaign post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "banyan-systems-sensitive-data-vault-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "banyan-systems-sensitive-data-vault-openapi.yml: declared missing tag: Consent",
+    "banyan-systems-rest-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Authentication",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Card Linked Offer",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Enriched Data",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Enriched Data - Merchant Service Provider",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: History",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Receipt",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Tag Counter",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Transaction",
+    "banyan-systems-rest-api-openapi.yml: declared missing tag: Webhook",
+    "superseded outputs removed: banyan-systems-rest-api-openapi.yml",
+    "apis.yml register: written (+10 apis, 11 total)"
+  ],
+  "skipped": []
+}

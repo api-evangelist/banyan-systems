@@ -157,9 +157,10 @@ common:
 
 apis:
 - name: Banyan API
-  description: Banyan's OAuth2 REST API for submitting receipt and transaction data, retrieving enriched (item-level) transactions, managing card-linked-offer
-    campaigns/offers/activations, receipt search, consumer consent, and webhook endpoint management. Base URL https://api.banyan.com with versioned
-    paths under /rest/v1.
+  description: >-
+    Banyan's OAuth2 REST API for submitting receipt and transaction data, retrieving enriched (item-level)
+    transactions, managing card-linked-offer campaigns/offers/activations, receipt search, consumer consent,
+    and webhook endpoint management. Base URL https://api.banyan.com with versioned paths under /rest/v1.
   humanURL: https://developers.banyan.com
   baseURL: https://api.banyan.com
   properties:
@@ -172,16 +173,16 @@ apis:
   - type: Authentication
     url: authentication/banyan-systems-authentication.yml
   aid: banyan-systems:banyan-api
-- aid: banyan-systems:banyan-systems-rest-api
-  name: Banyan Systems Systems Rest API
-  description: The Systems Rest API from Banyan Systems — 28 operation(s) for systems rest.
+- aid: banyan-systems:banyan-systems-authentication-api
+  name: Banyan Systems Authentication API
+  description: The Authentication API from Banyan Systems — 2 operation(s) for authentication.
   humanURL: https://developers.banyan.com
   baseURL: https://api.banyan.com
   tags:
-  - Systems Rest
+  - Authentication
   properties:
   - type: OpenAPI
-    url: openapi/banyan-systems-rest-api-openapi.yml
+    url: openapi/banyan-systems-authentication-api-openapi.yml
   - type: JSONSchema
     url: json-schema/banyan-systems-offer-entity-json-schema.json
   - type: JSONSchema
@@ -194,16 +195,6 @@ apis:
     url: json-schema/banyan-systems-receipt-hotel-json-schema.json
   - type: JSONSchema
     url: json-schema/banyan-systems-transaction-egress-json-schema.json
-- aid: banyan-systems:banyan-systems-sensitive-data-vault
-  name: Banyan Systems Systems Sensitive Data Vault Openapi.Yml API
-  description: The Systems Sensitive Data Vault Openapi.Yml API from Banyan Systems — 3 operation(s) for systems sensitive data vault openapi.yml.
-  humanURL: https://developers.banyan.com
-  baseURL: https://api.banyan.com
-  tags:
-  - Systems Sensitive Data Vault Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/banyan-systems-sensitive-data-vault-openapi.yml
   - type: JSONSchema
     url: json-schema/banyan-systems-consent-egress-json-schema.json
   - type: JSONSchema
@@ -216,7 +207,314 @@ apis:
     url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
   - type: JSONSchema
     url: json-schema/banyan-systems-find-consent-output-json-schema.json
-
+- aid: banyan-systems:banyan-systems-card-linked-offer-api
+  name: Banyan Systems Card Linked Offer API
+  description: The Card Linked Offer API from Banyan Systems — 9 operation(s) for card linked offer.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Card Linked Offer
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-card-linked-offer-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-consent-api
+  name: Banyan Systems Consent API
+  description: The Consent API from Banyan Systems — 3 operation(s) for consent.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Consent
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-consent-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-enriched-data-api
+  name: Banyan Systems Enriched Data API
+  description: The Enriched Data API from Banyan Systems — 3 operation(s) for enriched data.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Enriched Data
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-enriched-data-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-enriched-data-merchant-service-provider-api
+  name: Banyan Systems Enriched Data - Merchant Service Provider API
+  description: >-
+    The Enriched Data - Merchant Service Provider API from Banyan Systems — 1 operation(s) for enriched
+    data - merchant service provider.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Enriched Data - Merchant Service Provider
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-enriched-data-merchant-service-provider-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-history-api
+  name: Banyan Systems History API
+  description: The History API from Banyan Systems — 1 operation(s) for history.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - History
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-history-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-receipt-api
+  name: Banyan Systems Receipt API
+  description: The Receipt API from Banyan Systems — 4 operation(s) for receipt.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Receipt
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-receipt-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-tag-counter-api
+  name: Banyan Systems Tag Counter API
+  description: The Tag Counter API from Banyan Systems — 1 operation(s) for tag counter.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Tag Counter
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-tag-counter-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-transaction-api
+  name: Banyan Systems Transaction API
+  description: The Transaction API from Banyan Systems — 2 operation(s) for transaction.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-transaction-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
+- aid: banyan-systems:banyan-systems-webhook-api
+  name: Banyan Systems Webhook API
+  description: The Webhook API from Banyan Systems — 5 operation(s) for webhook.
+  humanURL: https://developers.banyan.com
+  baseURL: https://api.banyan.com
+  tags:
+  - Webhook
+  properties:
+  - type: OpenAPI
+    url: openapi/banyan-systems-webhook-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-entity-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-offer-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-merchant-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-retail-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-receipt-hotel-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-transaction-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-egress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-consent-ingress-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-error-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-input-json-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-create-consent-record-idjson-schema.json
+  - type: JSONSchema
+    url: json-schema/banyan-systems-find-consent-output-json-schema.json
 x-enrichment:
   date: '2026-07-19'
   status: backfilled

@@ -1,0 +1,284 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Authentication API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Authentication
+paths:
+  /oauth/token:
+    post:
+      description: Get a bearer token to use with subsequent calls.
+      operationId: oauth-token
+      parameters:
+      - description: The grant type to use.  Must be 'client_credentials'.
+        in: header
+        name: Grant_Type
+        required: true
+        schema:
+          default: client_credentials
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token:
+                    description: The bearer token to use for subsequent requests.
+                    type: string
+                  expires_in:
+                    description: The number of seconds until the token expires.
+                    type: integer
+                type: object
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                  error_description:
+                    type: string
+                type: object
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: string
+                  error_description:
+                    type: string
+                type: object
+          description: Internal Server Error
+      security:
+      - basic: []
+      summary: Get a Bearer Token
+      tags:
+      - Authentication
+  /v1/version:
+    get:
+      description: Get version information for the service. Useful for checking authentication.
+      operationId: version
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionResultJSON'
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  fault:
+                    properties:
+                      detail:
+                        properties:
+                          errorcode:
+                            description: 'A machine readable error code. '
+                            type: string
+                        type: object
+                      faultstring:
+                        description: 'A human readable description of the error. '
+                        type: string
+                    type: object
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseJSON'
+          description: Forbidden
+      security:
+      - bearerToken: []
+      summary: Get Version Information
+      tags:
+      - Authentication
+components:
+  schemas:
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    VersionResultJSON:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/VersionDataJSON'
+          type: array
+        errors:
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      - errors
+      type: object
+    ErrorResponseJSON:
+      properties:
+        data:
+          items: {}
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorJSON'
+          type: array
+        request_id:
+          description: A unique identifier for this request. This can be used to trace the request through the system.
+          type: string
+      required:
+      - errors
+      title: The Banyan Standard Error Response
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+    VersionDataJSON:
+      properties:
+        branch:
+          type: string
+        build_date:
+          type: string
+        commit_id:
+          type: string
+        deploy_env:
+          type: string
+        git_summary:
+          type: string
+        is_gcp:
+          type: boolean
+        service_name:
+          type: string
+        version:
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0

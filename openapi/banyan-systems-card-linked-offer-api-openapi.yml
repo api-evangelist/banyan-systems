@@ -1,0 +1,3620 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Card Linked Offer API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Card Linked Offer
+paths:
+  /v1/campaign:
+    get:
+      description: Return all campaigns for a partner
+      operationId: retrieve-all-campaigns
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CampaignEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaigns.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve All Campaigns
+      tags:
+      - Card Linked Offer
+    post:
+      description: Create a new campaign.
+      operationId: submit-a-campaign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignIngressJSON'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CampaignEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not valid.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Submit a Campaign
+      tags:
+      - Card Linked Offer
+  /v1/campaign/{id}:
+    get:
+      description: Get a campaign via its Banyan Campaign ID.
+      operationId: retrieve-a-campaign
+      parameters:
+      - description: The Campaign ID to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CampaignEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not valid.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve a Campaign
+      tags:
+      - Card Linked Offer
+    patch:
+      description: Update an existing campaign.
+      operationId: update-a-campaign
+      parameters:
+      - description: The Campaign ID to update
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignIngressJSON'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/CampaignEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not valid.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Update a Campaign
+      tags:
+      - Card Linked Offer
+  /v1/campaign/{id}/offers:
+    get:
+      description: Get all offers that belong to a campaign.
+      operationId: retrieve-all-offers-under-a-campaign
+      parameters:
+      - description: The Campaign ID to retrieve offers for
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offers.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not valid.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The campaign was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve All Offers Under a Campaign
+      tags:
+      - Card Linked Offer
+  /v1/offer:
+    get:
+      description: Search for an offer by the publisher's offer ID.
+      operationId: search-offer
+      parameters:
+      - description: The publisher's offer ID to retrieve.
+        in: query
+        name: publisher_offer_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Search For an Offer
+      tags:
+      - Card Linked Offer
+    post:
+      description: Submit an offer.
+      operationId: submit-an-offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferIngressJSON'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer was created.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was conflicted.
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Submit an Offer
+      tags:
+      - Card Linked Offer
+  /v1/offer/activation:
+    post:
+      description: Submit multiple offer activations.
+      operationId: submit-an-offer-activation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/OfferActivationIngressJSON'
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Mixed response containing the saved activations and errors for any activations that had errors.
+        '201':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: All activations created successfully.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Submit one or more of Offer Activation
+      tags:
+      - Card Linked Offer
+  /v1/offer/activation/search:
+    get:
+      description: Search for all offer activations corresponding to a consumer token.
+      operationId: search-offer-activations
+      parameters:
+      - description: The publisher's consumer token to retrieve.
+        in: query
+        name: publisher_consumer_token
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activations.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: No offer activations were found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Search For Offer Activations
+      tags:
+      - Card Linked Offer
+  /v1/offer/activation/{id}:
+    get:
+      description: Get an offer activation
+      operationId: retrieve-an-offer-activation
+      parameters:
+      - description: The offer activation ID to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activation.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activation was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve an Offer Activation
+      tags:
+      - Card Linked Offer
+    patch:
+      description: Modify an existing offer activation.
+      operationId: update-an-offer-activation
+      parameters:
+      - description: The offer activation ID to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchOfferActivationInputJSON'
+        description: The offer activation update input.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The updated offer activation.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activation was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request conflicted
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Update an Offer Activation
+      tags:
+      - Card Linked Offer
+  /v1/offer/{id}:
+    get:
+      description: Get an offer.
+      operationId: retrieve-an-offer
+      parameters:
+      - description: The offer ID to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve an Offer
+      tags:
+      - Card Linked Offer
+    patch:
+      description: Modify an existing offer.
+      operationId: update-an-offer
+      parameters:
+      - description: The offer ID to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchOfferInputJSON'
+        description: The offer update input.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The updated offer.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activation was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request conflicted
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Update an Offer
+      tags:
+      - Card Linked Offer
+  /v1/offer/{id}/activations:
+    get:
+      description: Get all offer activations for a given banyan offer ID.
+      operationId: retrieve-offer-activations-for-offer-id
+      parameters:
+      - description: The offer ID to retrieve activations for.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferActivationEntityJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer activations.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: No offer activations were found for the offer ID.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Offer Activations For Offer ID
+      tags:
+      - Card Linked Offer
+components:
+  schemas:
+    OfferIngressJSON:
+      properties:
+        activation_window_minutes:
+          description: Activation_Window_Minutes is the number of minutes the offer is active after the customer had activated it.
+          type: integer
+        allow_activation_after_purchase:
+          description: When enabled, will allow an offer activation to occur after a purchase has already been made.
+          type: boolean
+        always_on:
+          description: 'Enables the offer to be "Always On", whereby no activations are required and redemptions will be generated for all qualifying consumers from the publisher (transaction provider). Note: Allow Activation After Purchase must also be enabled when Always On is enabled.'
+          type: boolean
+        amount_back_limit:
+          description: The limit of amount back rewards that can be awarded on a single offer redemption. Setting to 0 will enable no limit.
+          example: '100.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_dollar:
+          description: The amount of rewards awarded per qualified dollar spent on the offer.
+          example: '0.12'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_unit:
+          description: The amount of rewards awarded per qualified unit spent purchased.
+          example: '0.15'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_type:
+          description: The type of the amount back award (e.g. DOLLARS, POINTS, etc.)
+          example: DOLLARS
+          type: string
+        budget:
+          description: The total amount that can be spent on this offer during the offer's lifetime.
+          type: integer
+        byn_advertiser_id:
+          description: The Banyan ID for the advertiser (receipt provider) participating in the offer.
+          type: integer
+        byn_campaign_id:
+          description: The Banyan ID for the campaign this offer belongs to.
+          example: b276d649-0f54-4dbb-bcd1-197f1cbb59be
+          format: uuid
+          type: string
+        card_issuer:
+          type: string
+        card_types:
+          items:
+            type: string
+          type: array
+        currency:
+          description: The currency code for amount back rewards (if in DOLLARS)
+          example: USD
+          type: string
+        expiration_ts:
+          description: The timestamp at which the offer will no longer be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        name:
+          description: The name of the offer given by the publisher.
+          example: Awesome Offer
+          type: string
+        offer_criteria:
+          $ref: '#/components/schemas/OfferCriteriaIngressJSON'
+        offer_hotel_criteria:
+          $ref: '#/components/schemas/OfferHotelCriteriaIngressJSON'
+        prorate_qualified_spend:
+          description: 'Allows the choice of overriding the default behavior to prorate qualified item spend. Default: true.'
+          type: boolean
+        publisher_offer_id:
+          description: The offer ID given by the publisher.
+          example: awesome-offer-1
+          type: string
+        return_receipt_detail:
+          description: Will enable the Offer Redemptions generated for this offer to include receipt details.
+          type: boolean
+        start_ts:
+          description: The timestamp at which the offer will be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - publisher_offer_id
+      - byn_campaign_id
+      - byn_advertiser_id
+      type: object
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    OfferCriteriaIngressJSON:
+      properties:
+        amount_threshold:
+          description: The minimum amount of cumulative spend due to qualified items that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        excl_sku:
+          description: (DEPRECATED, please use item_disqualification_expression instead. SKUs set on this field will automatically be combined with excl_tags into an expression string on item_disqualification_expression) The SKU's that will disqualify an item from the offer. Has priority over included SKU's and included tags. Leaving this empty will mean no SKU's are disqualified by default.
+          items:
+            type: string
+          type: array
+        excl_tags:
+          description: (DEPRECATED, please use item_disqualification_expression instead. Tags set on this field will automatically be combined with excl_sku into an expression string on item_disqualification_expression) The tags that will disqualify an item from the offer. Has priority over included tags, but is trumped by included SKU's. Leaving this empty will mean no tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        incl_sku:
+          description: (DEPRECATED, please use item_qualification_expression instead. SKUs set on this field will automatically be combined with incl_tags into an expression string on item_qualification_expression) The SKU's that will qualify an item for the offer. Has priority over excluded tags. Leaving this empty will mean all SKU's qualify by default.
+          items:
+            type: string
+          type: array
+        incl_tags:
+          description: (DEPRECATED, please use item_qualification_expression instead. Tags set on this field will automatically be combined with incl_sku into an expression string on item_qualification_expression) The tags that will qualify an item for the offer. Is trumped by excluded SKU's and excluded tags. Leaving this empty will mean all tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        item_disqualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining disqualification. Has priority over item qualification expression. Leaving this empty will mean items aren't disqualified by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        item_qualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining qualification. Is trumped by the item disqualification expression. Leaving this empty will mean item qualifies by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        order_types:
+          description: The order types that qualify for the offer (e.g. in_store, web)
+          items:
+            $ref: '#/components/schemas/OrderType'
+          type: array
+      type: object
+    PatchOfferCriteriaInputJSON:
+      properties:
+        amount_threshold:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        excl_sku:
+          items:
+            type: string
+          type: array
+        excl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        fulfillment_count_limit:
+          type: integer
+        incl_sku:
+          items:
+            type: string
+          type: array
+        incl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        item_disqualification_expression:
+          type: string
+        item_qualification_expression:
+          type: string
+        order_types:
+          items:
+            $ref: '#/components/schemas/OrderType'
+          type: array
+        repeat_amount:
+          type: integer
+      required:
+      - order_types
+      - item_qualification_expression
+      - item_disqualification_expression
+      - incl_tags
+      - excl_tags
+      - incl_sku
+      - excl_sku
+      - amount_threshold
+      - repeat_amount
+      - fulfillment_count_limit
+      type: object
+    OrderType:
+      enum:
+      - in_store
+      - web
+      type: string
+    OfferCriteriaEntityJSON:
+      properties:
+        amount_threshold:
+          description: The minimum amount of cumulative spend due to qualified items that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        excl_sku:
+          description: (DEPRECATED, please use item_disqualification_expression instead. SKUs set on this field will automatically be combined with excl_tags into an expression string on item_disqualification_expression) The SKU's that will disqualify an item from the offer. Has priority over included SKU's and included tags. Leaving this empty will mean no SKU's are disqualified by default.
+          items:
+            type: string
+          type: array
+        excl_tags:
+          description: (DEPRECATED, please use item_disqualification_expression instead. Tags set on this field will automatically be combined with excl_sku into an expression string on item_disqualification_expression) The tags that will disqualify an item from the offer. Has priority over included tags, but is trumped by included SKU's. Leaving this empty will mean no tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        incl_sku:
+          description: (DEPRECATED, please use item_qualification_expression instead. SKUs set on this field will automatically be combined with incl_tags into an expression string on item_qualification_expression) The SKU's that will qualify an item for the offer. Has priority over excluded tags. Leaving this empty will mean all SKU's qualify by default.
+          items:
+            type: string
+          type: array
+        incl_tags:
+          description: (DEPRECATED, please use item_qualification_expression instead. Tags set on this field will automatically be combined with incl_sku into an expression string on item_qualification_expression) The tags that will qualify an item for the offer. Is trumped by excluded SKU's and excluded tags. Leaving this empty will mean all tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        item_disqualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining disqualification. Has priority over item qualification expression. Leaving this empty will mean items aren't disqualified by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        item_qualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining qualification. Is trumped by the item disqualification expression. Leaving this empty will mean item qualifies by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        order_types:
+          description: The order types that qualify for the offer (e.g. in_store, web)
+          items:
+            $ref: '#/components/schemas/OrderType'
+          type: array
+        repeat_amount:
+          description: (DEPRECATED, please use fulfillment_count_limit instead) The amount of times an offer can be fulfilled for a single activation following the first.
+          type: integer
+      type: object
+    OfferActivationEntityJSON:
+      properties:
+        byn_offer_activation_id:
+          description: The generated Banyan ID for the offer activation.
+          example: 5dd9f994-3d7b-4fc9-a0a2-f4bb08ca6f1b
+          format: uuid
+          type: string
+        byn_offer_id:
+          description: The Banyan ID for the offer to be associated with this activation.
+          example: d962a1db-f165-4235-9826-3a315ec64357
+          format: uuid
+          type: string
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the offer activation.
+          type: integer
+        cards:
+          description: The list of card-last-four's for which the offer is activated (e.g. 1234, 5678).
+          items:
+            type: string
+          minItems: 1
+          type: array
+        created_ts:
+          description: The timestamp the offer activation was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        publisher_consumer_token:
+          description: The publisher's consumer token for which the offer is activated.
+          example: '"FE302sd34asdf"'
+          type: string
+        updated_ts:
+          description: The timestamp the offer activation was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_offer_activation_id
+      - byn_offer_id
+      - publisher_consumer_token
+      - cards
+      type: object
+    OfferHotelCriteriaIngressJSON:
+      properties:
+        dining_excl_tags:
+          description: The tags that will disqualify a dining charge from the offer. Has priority over included dining charge tags. Leaving this empty will mean none of a dining charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_incl_tags:
+          description: The tags that will qualify a dining charge for the offer. Is trumped by excluded dining charge tags. Leaving this empty will mean all of a dining charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified dining charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        room_disqualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining disqualification. Has priority over qualification expression. Leaving this empty will mean no tags are disqualified by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_excl_tags:
+          description: (DEPRECATED, please use room_disqualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_disqualification_expression) The tags that will disqualify a room charge from the offer. Has priority over included room charge tags. Leaving this empty will mean none of a room charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_incl_tags:
+          description: (DEPRECATED, please use room_qualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_qualification_expression) The tags that will qualify a room charge for the offer. Is trumped by excluded room charge tags. Leaving this empty will mean all of a room charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_qualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining qualification. Is trumped by disqualification expression. Leaving this empty will mean all tags qualify by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified room charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    PatchOfferInputJSON:
+      properties:
+        activation_window_minutes:
+          type:
+          - integer
+          - 'null'
+        allow_activation_after_purchase:
+          type: boolean
+        always_on:
+          type: boolean
+        amount_back_limit:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_dollar:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_type:
+          type: string
+        byn_advertiser_id:
+          type: integer
+        byn_campaign_id:
+          format: uuid
+          type: string
+        card_issuer:
+          type: string
+        card_types:
+          items:
+            type: string
+          type: array
+        currency:
+          type: string
+        expiration_ts:
+          format: date-time
+          type: string
+        name:
+          type: string
+        offer_criteria:
+          $ref: '#/components/schemas/PatchOfferCriteriaInputJSON'
+        offer_hotel_criteria:
+          $ref: '#/components/schemas/PatchOfferHotelCriteriaInputJSON'
+        prorate_qualified_spend:
+          type: boolean
+        publisher_offer_id:
+          type: string
+        return_receipt_detail:
+          type: boolean
+        start_ts:
+          format: date-time
+          type: string
+      type: object
+    PatchOfferHotelCriteriaInputJSON:
+      properties:
+        dining_excl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_incl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_spend_threshold:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        fulfillment_count_limit:
+          type: integer
+        room_disqualification_expression:
+          type: string
+        room_excl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_incl_tags:
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_qualification_expression:
+          type: string
+        room_spend_threshold:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      required:
+      - room_incl_tags
+      - room_excl_tags
+      - room_qualification_expression
+      - room_disqualification_expression
+      - room_spend_threshold
+      - dining_incl_tags
+      - dining_excl_tags
+      - dining_spend_threshold
+      - fulfillment_count_limit
+      type: object
+    OfferActivationIngressJSON:
+      properties:
+        byn_offer_id:
+          description: The Banyan ID for the offer to be associated with this activation.
+          example: d962a1db-f165-4235-9826-3a315ec64357
+          format: uuid
+          type: string
+        cards:
+          description: The list of card-last-four's for which the offer is activated (e.g. 1234, 5678).
+          items:
+            type: string
+          minItems: 1
+          type: array
+        publisher_consumer_token:
+          description: The publisher's consumer token for which the offer is activated.
+          example: '"FE302sd34asdf"'
+          type: string
+      required:
+      - byn_offer_id
+      - publisher_consumer_token
+      - cards
+      type: object
+    PatchOfferActivationInputJSON:
+      properties:
+        cards:
+          items:
+            type: string
+          type: array
+      required:
+      - cards
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    OfferEntityJSON:
+      properties:
+        activation_window_minutes:
+          description: Activation_Window_Minutes is the number of minutes the offer is active after the customer had activated it.
+          type: integer
+        allow_activation_after_purchase:
+          description: When enabled, will allow an offer activation to occur after a purchase has already been made.
+          type: boolean
+        always_on:
+          description: 'Enables the offer to be "Always On", whereby no activations are required and redemptions will be generated for all qualifying consumers from the publisher (transaction provider). Note: Allow Activation After Purchase must also be enabled when Always On is enabled.'
+          type: boolean
+        amount_back_limit:
+          description: The limit of amount back rewards that can be awarded on a single offer redemption. Setting to 0 will enable no limit.
+          example: '100.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_dollar:
+          description: The amount of rewards awarded per qualified dollar spent on the offer.
+          example: '0.12'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_unit:
+          description: The amount of rewards awarded per qualified unit spent purchased.
+          example: '0.15'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_type:
+          description: The type of the amount back award (e.g. DOLLARS, POINTS, etc.)
+          example: DOLLARS
+          type: string
+        budget:
+          description: The total amount that can be spent on this offer during the offer's lifetime.
+          type: integer
+        byn_advertiser_id:
+          description: The Banyan ID for the advertiser (receipt provider) participating in the offer.
+          type: integer
+        byn_campaign_id:
+          description: The Banyan ID for the campaign this offer belongs to.
+          example: b276d649-0f54-4dbb-bcd1-197f1cbb59be
+          format: uuid
+          type: string
+        byn_offer_id:
+          description: The Banyan ID generated for this offer.
+          example: d962a1db-f165-4235-9826-3a315ec64357
+          format: uuid
+          type: string
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the offer
+          type: integer
+        card_issuer:
+          type: string
+        card_types:
+          items:
+            type: string
+          type: array
+        created_ts:
+          description: The timestamp the offer was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        currency:
+          description: The currency code for amount back rewards (if in DOLLARS)
+          example: USD
+          type: string
+        expiration_ts:
+          description: The timestamp at which the offer will no longer be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        name:
+          description: The name of the offer given by the publisher.
+          example: Awesome Offer
+          type: string
+        offer_criteria:
+          $ref: '#/components/schemas/OfferCriteriaEntityJSON'
+        offer_hotel_criteria:
+          $ref: '#/components/schemas/OfferHotelCriteriaEntityJSON'
+        prorate_qualified_spend:
+          description: 'Allows the choice of overriding the default behavior to prorate qualified item spend. Default: true.'
+          type: boolean
+        publisher_offer_id:
+          description: The offer ID given by the publisher.
+          example: awesome-offer-1
+          type: string
+        return_receipt_detail:
+          description: Will enable the Offer Redemptions generated for this offer to include receipt details.
+          type: boolean
+        start_ts:
+          description: The timestamp at which the offer will be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        updated_ts:
+          description: The timestamp the offer was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_offer_id
+      - byn_campaign_id
+      - return_receipt_detail
+      - always_on
+      - byn_advertiser_id
+      - byn_publisher_id
+      - created_ts
+      - updated_ts
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+    CampaignIngressJSON:
+      properties:
+        budget:
+          description: The maximum amount that can be spent on this campaign's rewards.
+          type: integer
+        name:
+          description: The name of the campaign given by the publisher.
+          example: Awesome Campaign
+          type: string
+      required:
+      - name
+      type: object
+    CampaignEgressJSON:
+      properties:
+        budget:
+          description: The maximum amount that can be spent on this campaign's rewards.
+          type: integer
+        byn_campaign_id:
+          description: The generated Banyan ID for the offer redemption.
+          example: b276d649-0f54-4dbb-bcd1-197f1cbb59be
+          format: uuid
+          type: string
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the campaign.
+          type: integer
+        created_ts:
+          description: The timestamp the campaign was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        name:
+          description: The name of the campaign given by the publisher.
+          example: Awesome Campaign
+          type: string
+        updated_ts:
+          description: The timestamp the campaign was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_campaign_id
+      type: object
+    OfferHotelCriteriaEntityJSON:
+      properties:
+        dining_excl_tags:
+          description: The tags that will disqualify a dining charge from the offer. Has priority over included dining charge tags. Leaving this empty will mean none of a dining charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_incl_tags:
+          description: The tags that will qualify a dining charge for the offer. Is trumped by excluded dining charge tags. Leaving this empty will mean all of a dining charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified dining charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        room_disqualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining disqualification. Has priority over qualification expression. Leaving this empty will mean no tags are disqualified by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_excl_tags:
+          description: (DEPRECATED, please use room_disqualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_disqualification_expression) The tags that will disqualify a room charge from the offer. Has priority over included room charge tags. Leaving this empty will mean none of a room charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_incl_tags:
+          description: (DEPRECATED, please use room_qualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_qualification_expression) The tags that will qualify a room charge for the offer. Is trumped by excluded room charge tags. Leaving this empty will mean all of a room charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_qualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining qualification. Is trumped by disqualification expression. Leaving this empty will mean all tags qualify by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified room charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0

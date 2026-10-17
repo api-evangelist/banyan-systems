@@ -1,0 +1,1760 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Enriched Data API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Enriched Data
+paths:
+  /v1/transaction/{byn_transaction_id}/enriched:
+    get:
+      description: Get an enriched transaction via the Banyan Transaction ID
+      operationId: retrieve-match
+      parameters:
+      - description: The Banyan Transaction ID to retrieve a match record for.
+        in: path
+        name: byn_transaction_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/EnrichedTransactionEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The enriched transaction.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The enriched transaction was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Enriched Transaction
+      tags:
+      - Enriched Data
+  /v1/transaction/{byn_transaction_id}/redemption:
+    get:
+      description: Get an offer redemption.
+      operationId: retrieve-offer-redemption
+      parameters:
+      - description: The Banyan transaction ID that was redeemed.
+        in: path
+        name: byn_transaction_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferRedemptionEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer redemption.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer redemption was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Offer Redemption
+      tags:
+      - Enriched Data
+  /v1/transaction/{byn_transaction_id}/redemption/history:
+    get:
+      description: When new transactions or receipts enter the Banyan platform, they can potentially change the result set for an offer redemption. Using this history endpoint shows you all of the statuses that a particular transaction had over time
+      operationId: retrieve-offer-redemption-history
+      parameters:
+      - description: The Banyan transaction ID that was redeemed.
+        in: path
+        name: byn_transaction_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/OfferRedemptionEgressJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The list of offer redemptions for the transaction.
+        '400':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The request was malformed.
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: The offer redemption was not found.
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Offer Redemption History
+      tags:
+      - Enriched Data
+components:
+  schemas:
+    TransactionEgressJSON:
+      properties:
+        authorization_ts:
+          description: The time at which the transaction was authorized in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        byn_transaction_id:
+          description: The Banyan ID generated for the transaction
+          example: 218823ba-3fec-483b-8803-8c04f7e10d7f
+          format: uuid
+          type: string
+        custom_fields:
+          additionalProperties:
+            type: string
+          description: Set of custom fields set on the transaction.
+          type: object
+        description:
+          description: Description of the transaction.
+          example: Purchase of pickles at Tommy's Pickles.
+          type: string
+        finx_consumer_token:
+          description: The merchant's token for the consumer.
+          example: 5ASD32K2L34FA
+          type: string
+        finx_transaction_id:
+          description: The finx's internal ID for the transaction.
+          example: 5LA3LQKLR34L23L2
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationEgressJSON'
+        merchant:
+          $ref: '#/components/schemas/MerchantEgressJSON'
+        order_type:
+          $ref: '#/components/schemas/OrderType'
+        payment:
+          $ref: '#/components/schemas/TransactionPaymentEgressJSON'
+        purchase_ts:
+          description: The time at which purchase occurred in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        received_ts:
+          description: The time at which the receipt was received in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_transaction_id
+      - received_ts
+      - finx_transaction_id
+      type: object
+    OfferHotelCriteriaEgressJSON:
+      properties:
+        dining_excl_tags:
+          description: The tags that will disqualify a dining charge from the offer. Has priority over included dining charge tags. Leaving this empty will mean none of a dining charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_incl_tags:
+          description: The tags that will qualify a dining charge for the offer. Is trumped by excluded dining charge tags. Leaving this empty will mean all of a dining charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        dining_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified dining charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        room_disqualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining disqualification. Has priority over qualification expression. Leaving this empty will mean no tags are disqualified by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_excl_tags:
+          description: (DEPRECATED, please use room_disqualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_disqualification_expression) The tags that will disqualify a room charge from the offer. Has priority over included room charge tags. Leaving this empty will mean none of a room charge's tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_incl_tags:
+          description: (DEPRECATED, please use room_qualification_expression instead. Tags set on this field will automatically be converted into an expression string on room_qualification_expression) The tags that will qualify a room charge for the offer. Is trumped by excluded room charge tags. Leaving this empty will mean all of a room charge's tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        room_qualification_expression:
+          description: The expression string to be applied to a room charge's tags when determining qualification. Is trumped by disqualification expression. Leaving this empty will mean all tags qualify by default. Expression strings are boolean logical operations applied to the tags on a room charge. The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"service:|:laundry" or ("category:|:snacks" and "description:|:candy")'
+          type: string
+        room_spend_threshold:
+          description: The minimum amount of cumulative spend due to qualified room charges that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    MerchantEgressJSON:
+      properties:
+        name:
+          description: The business name.
+          example: PicklesRUS
+          type: string
+      type: object
+    OfferRedemptionResultEgressJSON:
+      properties:
+        amount_back:
+          description: The calculated amount of rewards to be awarded.
+          example: '5.04'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        cumulative_qualified_total_amount:
+          description: The total cumulative spend due to qualified elements of the receipt.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        fulfilled:
+          description: Marks if the offer was determined fulfilled according to the eligible offer's criteria. When the fulfillment count limit has already been exceeded for the activation, this will be marked false.
+          type: boolean
+        hotel:
+          $ref: '#/components/schemas/OfferRedemptionHotelResultEgressJSON'
+        items:
+          $ref: '#/components/schemas/OfferRedemptionItemsResultEgressJSON'
+      type: object
+    CurrencyAmount:
+      format: decimal
+      minItems: 1
+      type: string
+    EnrichedTransactionEgressJSON:
+      allOf:
+      - $ref: '#/components/schemas/BaseEnrichedTransactionEgressJSON'
+      properties:
+        receipt:
+          $ref: '#/components/schemas/ReceiptEgressJSON'
+      title: Enriched Transaction
+      type: object
+    CampaignEgressJSON:
+      properties:
+        budget:
+          description: The maximum amount that can be spent on this campaign's rewards.
+          type: integer
+        byn_campaign_id:
+          description: The generated Banyan ID for the offer redemption.
+          example: b276d649-0f54-4dbb-bcd1-197f1cbb59be
+          format: uuid
+          type: string
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the campaign.
+          type: integer
+        created_ts:
+          description: The timestamp the campaign was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        name:
+          description: The name of the campaign given by the publisher.
+          example: Awesome Campaign
+          type: string
+        updated_ts:
+          description: The timestamp the campaign was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_campaign_id
+      type: object
+    FulfillmentType:
+      enum:
+      - ship
+      - delivery
+      - pickup
+      type: string
+    BaseOfferRedemptionEgressJSON:
+      properties:
+        campaign:
+          $ref: '#/components/schemas/CampaignEgressJSON'
+        created_ts:
+          description: The timestamp the offer redemption was generated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        fulfillment_count:
+          description: The number of times this offer activation has had a unique transaction that fulfilled the offer.
+          type: integer
+        id:
+          description: The generated Banyan ID for the offer redemption.
+          example: 5dd9f994-3d7b-4fc9-a0a2-f4bb08ca6f1b
+          type: string
+        offer:
+          $ref: '#/components/schemas/OfferEgressJSON'
+        offer_activation:
+          $ref: '#/components/schemas/OfferActivationEgressJSON'
+        result:
+          $ref: '#/components/schemas/OfferRedemptionResultEgressJSON'
+      required:
+      - id
+      type: object
+    OrderType:
+      enum:
+      - in_store
+      - web
+      type: string
+    EncryptedSensitiveDataEgressJSON:
+      properties:
+        data:
+          format: binary
+          type: string
+        dek:
+          format: binary
+          type: string
+        encryption_ts:
+          format: date-time
+          type: string
+        kek_id:
+          type: string
+        schema:
+          type: string
+        schema_url:
+          format: uri
+          type: string
+      required:
+      - kek_id
+      - dek
+      - data
+      - encryption_ts
+      type: object
+    ReceiptEgressJSON:
+      oneOf:
+      - $ref: '#/components/schemas/ReceiptHotelEgressJSON'
+      - $ref: '#/components/schemas/ReceiptMerchantEgressJSON'
+      type: object
+    OfferRedemptionEgressJSON:
+      allOf:
+      - $ref: '#/components/schemas/BaseOfferRedemptionEgressJSON'
+      properties:
+        enriched_transaction:
+          $ref: '#/components/schemas/EnrichedTransactionEgressJSON'
+      title: Offer Redemption
+      type: object
+    OfferRedemptionItemsResultEgressJSON:
+      properties:
+        qualified_ids:
+          description: A list of the item ID's that qualified for the offer.
+          items:
+            type: string
+          type: array
+        qualified_total_amount:
+          description: The total cumulative spend due to qualified items.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        unqualified_ids:
+          description: A list of the item ID's that did not qualify for the offer.
+          items:
+            type: string
+          type: array
+      type: object
+    HotelTaxesEgressJSON:
+      properties:
+        city_occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        other_taxes:
+          additionalProperties:
+            $ref: '#/components/schemas/CurrencyAmount'
+          description: Map of names to tax amounts.
+          type: object
+        state_occupancy:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tourism:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    HotelDailyChargesEgressJSON:
+      properties:
+        credits:
+          $ref: '#/components/schemas/CurrencyAmount'
+        dining:
+          $ref: '#/components/schemas/HotelDiningEgressJSON'
+        fees:
+          $ref: '#/components/schemas/HotelFeesEgressJSON'
+        per_night_date:
+          description: The date of the night the charge is for in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        room:
+          $ref: '#/components/schemas/HotelRoomEgressJSON'
+        spa:
+          description: The spa charges during the day.
+          items:
+            $ref: '#/components/schemas/SpaChargeEgressJSON'
+          type: array
+        tax:
+          $ref: '#/components/schemas/HotelTaxesEgressJSON'
+      required:
+      - per_night_date
+      type: object
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    AddressEgressJSON:
+      properties:
+        address_line_one:
+          description: For brick and mortar transactions only.
+          example: 100 Main Street
+          type: string
+        address_line_two:
+          description: For brick and mortar transactions only.
+          example: Suite 100
+          type: string
+        city:
+          description: For brick and mortar transactions only.
+          example: Holmdel
+          type: string
+        country:
+          description: For brick and mortar transactions only.
+          example: USA
+          type: string
+        postal_code:
+          description: For brick and mortar transactions only.
+          example: '07733'
+          type: string
+        state:
+          description: For brick and mortar transactions only.
+          example: NJ
+          type: string
+      type: object
+    HotelFeesEgressJSON:
+      properties:
+        business_center:
+          $ref: '#/components/schemas/CurrencyAmount'
+        cancellation:
+          $ref: '#/components/schemas/CurrencyAmount'
+        incidental_cost:
+          $ref: '#/components/schemas/CurrencyAmount'
+        laundry:
+          $ref: '#/components/schemas/CurrencyAmount'
+        no_show:
+          $ref: '#/components/schemas/CurrencyAmount'
+        other_fees:
+          additionalProperties:
+            $ref: '#/components/schemas/CurrencyAmount'
+          description: Map of names to fee amounts.
+          type: object
+        parking:
+          $ref: '#/components/schemas/CurrencyAmount'
+        resort:
+          $ref: '#/components/schemas/CurrencyAmount'
+        upgrade:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    ReceiptHotelEgressJSON:
+      allOf:
+      - $ref: '#/components/schemas/BaseReceiptEgressJSON'
+      properties:
+        hotel:
+          $ref: '#/components/schemas/HotelReceiptEgressJSON'
+        payment:
+          $ref: '#/components/schemas/ReceiptPaymentEgressJSON'
+      title: Hotel Receipt
+      type: object
+    OfferEgressJSON:
+      properties:
+        activation_window_minutes:
+          description: Activation_Window_Minutes is the number of minutes the offer is active after the customer had activated it.
+          type: integer
+        allow_activation_after_purchase:
+          description: When enabled, will allow an offer activation to occur after a purchase has already been made.
+          type: boolean
+        always_on:
+          description: 'Enables the offer to be "Always On", whereby no activations are required and redemptions will be generated for all qualifying consumers from the publisher (transaction provider). Note: Allow Activation After Purchase must also be enabled when Always On is enabled.'
+          type: boolean
+        amount_back_limit:
+          description: The limit of amount back rewards that can be awarded on a single offer redemption. Setting to 0 will enable no limit.
+          example: '100.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_dollar:
+          description: The amount of rewards awarded per qualified dollar spent on the offer.
+          example: '0.12'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_per_unit:
+          description: The amount of rewards awarded per qualified unit spent purchased.
+          example: '0.15'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        amount_back_type:
+          description: The type of the amount back award (e.g. DOLLARS, POINTS, etc.)
+          example: DOLLARS
+          type: string
+        budget:
+          description: The total amount that can be spent on this offer during the offer's lifetime.
+          type: integer
+        byn_advertiser_id:
+          description: The Banyan ID for the advertiser (receipt provider) participating in the offer.
+          type: integer
+        byn_offer_id:
+          description: The Banyan ID generated for this offer.
+          example: d962a1db-f165-4235-9826-3a315ec64357
+          format: uuid
+          type: string
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the offer
+          type: integer
+        card_issuer:
+          type: string
+        card_types:
+          items:
+            type: string
+          type: array
+        created_ts:
+          description: The timestamp the offer was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        currency:
+          description: The currency code for amount back rewards (if in DOLLARS)
+          example: USD
+          type: string
+        expiration_ts:
+          description: The timestamp at which the offer will no longer be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        name:
+          description: The name of the offer given by the publisher.
+          example: Awesome Offer
+          type: string
+        offer_criteria:
+          $ref: '#/components/schemas/OfferCriteriaEgressJSON'
+        offer_hotel_criteria:
+          $ref: '#/components/schemas/OfferHotelCriteriaEgressJSON'
+        prorate_qualified_spend:
+          description: 'Allows the choice of overriding the default behavior to prorate qualified item spend. Default: true.'
+          type: boolean
+        publisher_offer_id:
+          description: The offer ID given by the publisher.
+          example: awesome-offer-1
+          type: string
+        return_receipt_detail:
+          description: Will enable the Offer Redemptions generated for this offer to include receipt details.
+          type: boolean
+        start_ts:
+          description: The timestamp at which the offer will be eligible for fulfillment.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        updated_ts:
+          description: The timestamp the offer was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_offer_id
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+    OfferActivationEgressJSON:
+      properties:
+        byn_publisher_id:
+          description: The Banyan ID for the publisher (transaction provider) owning the offer activation.
+          type: integer
+        cards:
+          description: The list of card-last-four's for which the offer is activated (e.g. 1234, 5678).
+          items:
+            type: string
+          minItems: 1
+          type: array
+        created_ts:
+          description: The timestamp the offer activation was created.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        id:
+          description: The generated Banyan ID for the offer activation.
+          example: 5dd9f994-3d7b-4fc9-a0a2-f4bb08ca6f1b
+          type: string
+        publisher_consumer_token:
+          description: The publisher's consumer token for which the offer is activated.
+          example: '"FE302sd34asdf"'
+          type: string
+        updated_ts:
+          description: The timestamp the offer activation was last updated.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - id
+      - publisher_consumer_token
+      - cards
+      type: object
+    DiningItemEgressJSON:
+      properties:
+        amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        description:
+          description: Description of the item.
+          example: Diet Coke
+          type: string
+        quantity:
+          description: Quantity of the item.
+          example: '2'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    OfferCriteriaEgressJSON:
+      properties:
+        amount_threshold:
+          description: The minimum amount of cumulative spend due to qualified items that is required for the offer to be fulfilled. Setting to 0 will mean any qualifying spend will fulfill the offer.
+          example: '42.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        excl_sku:
+          description: (DEPRECATED, please use item_disqualification_expression instead. SKUs set on this field will automatically be combined with excl_tags into an expression string on item_disqualification_expression) The SKU's that will disqualify an item from the offer. Has priority over included SKU's and included tags. Leaving this empty will mean no SKU's are disqualified by default.
+          items:
+            type: string
+          type: array
+        excl_tags:
+          description: (DEPRECATED, please use item_disqualification_expression instead. Tags set on this field will automatically be combined with excl_sku into an expression string on item_disqualification_expression) The tags that will disqualify an item from the offer. Has priority over included tags, but is trumped by included SKU's. Leaving this empty will mean no tags are disqualified by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        fulfillment_count_limit:
+          description: The maximum number of times an offer can be marked as fulfilled for a single activation.
+          type: integer
+        incl_sku:
+          description: (DEPRECATED, please use item_qualification_expression instead. SKUs set on this field will automatically be combined with incl_tags into an expression string on item_qualification_expression) The SKU's that will qualify an item for the offer. Has priority over excluded tags. Leaving this empty will mean all SKU's qualify by default.
+          items:
+            type: string
+          type: array
+        incl_tags:
+          description: (DEPRECATED, please use item_qualification_expression instead. Tags set on this field will automatically be combined with incl_sku into an expression string on item_qualification_expression) The tags that will qualify an item for the offer. Is trumped by excluded SKU's and excluded tags. Leaving this empty will mean all tags qualify by default.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        item_disqualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining disqualification. Has priority over item qualification expression. Leaving this empty will mean items aren't disqualified by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        item_qualification_expression:
+          description: The expression string to be applied to an item's tags and sku when determining qualification. Is trumped by the item disqualification expression. Leaving this empty will mean item qualifies by default. Expression strings are boolean logical operations applied to the tags on an item (skus are included via tags with a prefix of `sku:|:`). The syntax is composed of the boolean operators `and` and `or` applied to  tags wrapped in double quotes. Parentheses are also supported for grouping logical expressions.
+          example: '"category:|:candy" or ("category:|:snacks" and "sku:|:45454645645465")'
+          type: string
+        order_types:
+          description: The order types that qualify for the offer (e.g. in_store, web)
+          items:
+            $ref: '#/components/schemas/OrderType'
+          type: array
+      type: object
+    HotelDiningEgressJSON:
+      properties:
+        minibar:
+          description: Itemized list of minibar items.
+          items:
+            $ref: '#/components/schemas/DiningItemEgressJSON'
+          type: array
+        room_service_dining:
+          description: Itemized list of dining charges.
+          items:
+            $ref: '#/components/schemas/DiningItemEgressJSON'
+          type: array
+        room_service_dining_subtotal:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_tax:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_tip:
+          $ref: '#/components/schemas/CurrencyAmount'
+        room_service_dining_total:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    SpaChargeEgressJSON:
+      properties:
+        amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        description:
+          type: string
+        quantity:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tax:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tip:
+          $ref: '#/components/schemas/CurrencyAmount'
+      type: object
+    ReceiptPaymentEgressJSON:
+      properties:
+        auth_code:
+          description: Six digit alphanumeric code passed between banks that signal a transaction is possible.
+          example: '482920'
+          type: string
+        card_issuer:
+          description: The card issuer for the card used on this payment.
+          type: string
+        cash_back_amount:
+          description: Amount of cash back.
+          example: '0.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        is_virtual_card:
+          description: Indicates whether the payment is virtual or not.
+          type: boolean
+        other_negative_amounts:
+          description: Any other amounts that are negative.
+          example: '13.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        other_positive_amounts:
+          description: Any other amounts that are positive.
+          example: '12.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        payment_account_reference:
+          description: A 29 character payment account reference.
+          type: string
+        payment_type:
+          description: Credit card vs debit card transaction.
+          example: debit
+          type: string
+        scheme:
+          description: The network the card was issued on.
+          example: VI
+          type: string
+        shipping_amount:
+          description: The amount paid to ship for a delivery fulfillment type.
+          example: '4.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        subtotal_amount:
+          description: Total amount less tax amount less shipping less tip.
+          example: '92.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tax_amount:
+          description: Sales tax amount
+          example: '8.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        tip_amount:
+          description: Extra money for services rendered.
+          example: '0.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        total_amount:
+          description: Amount paid for goods/services.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+      type: object
+    BaseReceiptEgressJSON:
+      properties:
+        barcode_url:
+          description: The URL of the barcode for the receipt if available.
+          example: https://www.example.com/pickles/receipts/barcode/2
+          format: uri
+          type: string
+        byn_receipt_id:
+          description: The Banyan ID generated for the receipt.
+          example: 966a675d-ffcd-42f1-9fef-0e5f4e16a9ef
+          format: uuid
+          type: string
+        currency:
+          description: The currency of the receipt.
+          example: USD
+          type: string
+        custom_fields:
+          additionalProperties:
+            type: string
+          type: object
+        fulfillment_type:
+          $ref: '#/components/schemas/FulfillmentType'
+        hotel:
+          $ref: '#/components/schemas/HotelReceiptEgressJSON'
+        image_url:
+          description: The URL for the image of the receipt if available.
+          example: https://www.example.com/pickles/receipts/2
+          format: uri
+          type: string
+        items:
+          description: List of the items on the receipt.
+          items:
+            $ref: '#/components/schemas/ReceiptItemEgressJSON'
+          type: array
+        location:
+          $ref: '#/components/schemas/LocationEgressJSON'
+        merchant:
+          $ref: '#/components/schemas/MerchantEgressJSON'
+        merchant_mid:
+          description: A unique ID for each POS, assigned by merchant bank.
+          example: '1234567890'
+          type: string
+        merchant_receipt_id:
+          description: Your unique ID rendered for each sale.  This field will be the same for split tenders.
+          example: '1234567890'
+          type: string
+        merchant_total_amount:
+          description: Total amount charged across all payment types.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        order_ts:
+          description: The time at which the order was placed with the merchant in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:50Z'
+          format: date-time
+          type: string
+        order_type:
+          $ref: '#/components/schemas/OrderType'
+        purchase_ts:
+          description: The time at which the purchase occurred in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        received_ts:
+          description: The time at which the receipt was received in RFC3339. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - byn_receipt_id
+      - merchant_receipt_id
+      - received_ts
+      type: object
+    HotelRoomEgressJSON:
+      properties:
+        description:
+          description: Long name for the room.
+          example: King with Balcony and Ocean View
+          type: string
+        rate:
+          $ref: '#/components/schemas/CurrencyAmount'
+        tags:
+          description: List of tags formatted as key-value pairs.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        type:
+          description: Type of bed.
+          example: King Suite
+          type: string
+      type: object
+    HotelReceiptEgressJSON:
+      properties:
+        daily_charges:
+          additionalProperties:
+            $ref: '#/components/schemas/HotelDailyChargesEgressJSON'
+          description: Object of the daily charges, keyed by the date for the charge.
+          type: object
+        guest_information:
+          $ref: '#/components/schemas/EncryptedSensitiveDataEgressJSON'
+        itinerary_number:
+          description: Your unique ID rendered for each sale.
+          example: '120394032820'
+          type: string
+        reservation_date:
+          description: The timestamp of the hotel reservation in RFC3339 format. UTC if possible.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+      required:
+      - daily_charges
+      type: object
+    ReceiptMerchantEgressJSON:
+      allOf:
+      - $ref: '#/components/schemas/BaseReceiptEgressJSON'
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ReceiptItemEgressJSON'
+          type: array
+        payment:
+          $ref: '#/components/schemas/ReceiptPaymentEgressJSON'
+      title: Merchant Receipt
+      type: object
+    LocationEgressJSON:
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressEgressJSON'
+        card_acceptor_names:
+          items:
+            type: string
+          type: array
+        display_name:
+          description: The banner name of the store of the purchase.
+          example: Pickles R US
+          type: string
+        merchant_store_id:
+          description: The merchant's store identifier.
+          example: '123456789'
+          type: string
+        name:
+          description: The legal/listed name of the store of the purchase.
+          example: 'Pickles R US #122333'
+          type: string
+        phone_number:
+          description: For brick and mortar transactions only.
+          example: 555-555-5555
+          type: string
+      type: object
+    BaseEnrichedTransactionEgressJSON:
+      properties:
+        byn_etx_id:
+          description: The Banyan ID generated for the enriched transaction.
+          example: dc75ce5d-ea6f-4d79-ae4d-f11981a8f62e
+          format: uuid
+          type: string
+        confidence_interval:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        match_ts:
+          description: The time at which the match occurred.
+          example: '2021-10-01T10:45:55Z'
+          format: date-time
+          type: string
+        split_tender:
+          type: boolean
+        transaction:
+          $ref: '#/components/schemas/TransactionEgressJSON'
+      required:
+      - match_ts
+      - transaction
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    OfferRedemptionHotelResultEgressJSON:
+      properties:
+        qualified_dining_charges:
+          items:
+            type: string
+          type: array
+        qualified_room_charges:
+          items:
+            type: string
+          type: array
+        total_qualified_dining_spend:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        total_qualified_room_spend:
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        unqualified_dining_charges:
+          items:
+            type: string
+          type: array
+        unqualified_room_charges:
+          items:
+            type: string
+          type: array
+      type: object
+    TransactionPaymentEgressJSON:
+      properties:
+        arn:
+          description: A unique 23-digit number that tags a credit or debit card transaction when it goes from the merchant's bank to the cardholder's bank. Also called a trace ID.
+          example: '12345678901234567890123'
+          type: string
+        auth_code:
+          description: Six digit alphanumeric code passed between banks that signal a transaction is possible.
+          example: '482920'
+          type: string
+        bin:
+          description: Bank Identification Number associated with the card used. Some BINs will be 8 digits in the near future.
+          example: '918202'
+          type: string
+        card_issuer:
+          description: The card issuer for the card used on this payment.
+          type: string
+        card_last_four:
+          description: Last 4 digits on the debit/credit card.
+          example: '2393'
+          type: string
+        card_type:
+          description: Card Type refers to the type of card offering from the card issuer.
+          type: string
+        currency:
+          description: The currency of the receipt.
+          example: USD
+          type: string
+        finx_mid:
+          description: A unique ID for each POS, assigned by the finx.
+          example: '1234567890'
+          type: string
+        payment_account_reference:
+          description: A 29 character payment account reference.
+          type: string
+        payment_type:
+          description: Credit card vs debit card transaction.
+          example: debit
+          type: string
+        scheme:
+          description: The network the card was issued on.
+          example: VI
+          type: string
+        total_amount:
+          description: Amount paid for goods/services.
+          example: '34.50'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        virtual_card_last_four:
+          description: The last four digits of the virtual card used for the transaction.
+          example: '1234'
+          type: string
+      type: object
+    ReceiptItemEgressJSON:
+      properties:
+        amount_paid:
+          description: The amount paid for the item.
+          example: '13.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        brand:
+          description: Brand of the item.
+          example: Tommy's Pickles
+          type: string
+        byn_item_id:
+          description: The Banyan ID generated for the item.
+          example: 4994c4d1-28df-453c-9df4-f9ec8a3ba689
+          format: uuid
+          type: string
+        description:
+          example: Gallon Half Sour Pickles
+          type: string
+        discount_price_per_unit:
+          description: The amount paid for the item.
+          example: '13.99'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        full_price_per_unit:
+          description: The regular price for the item specified in the item id.
+          example: '15.00'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        image_url:
+          description: The URL for the image of the item, if available.
+          example: https://www.example.com/pickles/items/123425/image
+          format: uri
+          type: string
+        merchant_item_id:
+          description: Unique ID for the item sold in the transaction.
+          example: '123408'
+          type: string
+        quantity:
+          description: The number of the same items purchased.
+          example: '2'
+          format: decimal
+          minLength: 1
+          pattern: ^-?\d+(\.\d+)?$
+          type: string
+        sku:
+          description: Store specific ID of the item.
+          example: '123425'
+          type: string
+        tags:
+          description: List of tags formatted as key-value pairs.
+          items:
+            description: A key-value pair that represents some form of tagged information.
+            example: foo:|:bar
+            minLength: 5
+            pattern: ^.+:\|:.+$
+            type: string
+          type: array
+        unit_type:
+          description: The unit of measure for the quantity.
+          example: each
+          type: string
+        upc:
+          description: Universal product code.
+          example: '4563226115636'
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0

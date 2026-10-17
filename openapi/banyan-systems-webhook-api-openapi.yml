@@ -1,0 +1,1847 @@
+openapi: 3.2.0
+info:
+  description: REST API for communicating with Banyan's systems
+  title: Banyan REST Webhook API
+  version: 1.0.3
+servers:
+- url: https://api.banyan.com
+security:
+- bearerToken: []
+tags:
+- name: Webhook
+paths:
+  /v1/webhook:
+    post:
+      operationId: create-webhook-application
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ApplicationIDJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application ID
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '409':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application already exists
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Create a Webhook Application if one doesn't exist
+      tags:
+      - Webhook
+  /v1/webhook/endpoint:
+    get:
+      operationId: get-webhook-endpoints-all
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpointOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Endpoint List
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve a list of all webhook endpoints for a partner
+      tags:
+      - Webhook
+    post:
+      operationId: create-webhook-endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointInJSON'
+        description: Webhook Endpoint
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpointOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Endpoint
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Create a webhook endpoint
+      tags:
+      - Webhook
+  /v1/webhook/endpoint/{endpoint_id}:
+    delete:
+      operationId: delete-webhook-endpoint
+      parameters:
+      - description: ID of the webhook endpoint
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpointIDJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Endpoint ID
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Delete a webhook endpoint
+      tags:
+      - Webhook
+    get:
+      operationId: retrieve-webhook-endpoint
+      parameters:
+      - description: ID or UID of the webhook endpoint
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpointOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Endpoint
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook endpoint not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve a webhook endpoint
+      tags:
+      - Webhook
+    put:
+      description: Update a webhook endpoint for a partner
+      operationId: update-webhook-endpoint
+      parameters:
+      - description: ID of the webhook endpoint
+        in: path
+        name: endpoint_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointUpdateJSON'
+        description: Webhook Endpoint
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpointOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Endpoint
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Update a webhook endpoint
+      tags:
+      - Webhook
+  /v1/webhook/events:
+    get:
+      description: Retrieve Event Types provided by Banyan
+      operationId: get-webhook-event-types
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookEventTypeOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook Event Type List
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Get Event Types provided by Banyan
+      tags:
+      - Webhook
+  /v1/webhook/{application_id}:
+    delete:
+      description: Delete a Webhook Application if one exist
+      operationId: delete-webhook-application
+      parameters:
+      - description: Webhook application ID
+        in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/ApplicationIDJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application ID
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Delete a Webhook Application if one exists
+      tags:
+      - Webhook
+    get:
+      description: Retrieve Webhook Application ID
+      operationId: retrieve-webhook-application
+      parameters:
+      - description: ID of the webhook application
+        in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: '#/components/schemas/WebhookAppOutJSON'
+                    minItems: 1
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application
+        '401':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Bearer token expired or not correct.
+        '403':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Partner does not have permissions for resource
+        '404':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Webhook application not found
+        '408':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request timeout
+        '413':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Request body is too large (4MiB limit)
+        '500':
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items: {}
+                    maxItems: 0
+                    type: array
+                  errors:
+                    items:
+                      $ref: '#/components/schemas/ErrorJSON'
+                    minItems: 1
+                    type: array
+                  request_id:
+                    format: uuid
+                    type: string
+                required:
+                - data
+                - errors
+                type: object
+          description: Internal server error
+      summary: Retrieve Webhook Application
+      tags:
+      - Webhook
+components:
+  schemas:
+    WebhookEndpointUpdateJSON:
+      properties:
+        channels:
+          items:
+            type: string
+          type: array
+        description:
+          type: string
+        disabled:
+          type: boolean
+        filterTypes:
+          items:
+            type: string
+          type: array
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        rateLimit:
+          format: int32
+          type: integer
+        uid:
+          type: string
+        url:
+          format: uri
+          type: string
+        version:
+          format: int32
+          type: integer
+      required:
+      - channels
+      - description
+      - disabled
+      - filterTypes
+      - metadata
+      - rateLimit
+      - uid
+      - url
+      - version
+      type: object
+    ValidationJSON:
+      properties:
+        field:
+          description: The field that failed validation.
+          type: string
+        message:
+          description: A human readable message describing the validation error.
+          type: string
+        value:
+          $ref: '#/components/schemas/FieldTypesJSON'
+      required:
+      - field
+      - message
+      type: object
+    WebhookEventTypeOutJSON:
+      properties:
+        archived:
+          type: boolean
+        createdAt:
+          format: date-time
+          type: string
+        description:
+          type: string
+        featureFlag:
+          type: string
+        name:
+          type: string
+        schemas:
+          additionalProperties:
+            $ref: '#/components/schemas/anyJSON'
+          type: object
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - archived
+      - createdAt
+      - description
+      - featureFlag
+      - name
+      - schemas
+      - updatedAt
+      type: object
+    WebhookEndpointOutJSON:
+      properties:
+        channels:
+          items:
+            type: string
+          type: array
+        createdAt:
+          format: date-time
+          type: string
+        description:
+          type: string
+        disabled:
+          type: boolean
+        filterTypes:
+          items:
+            type: string
+          type: array
+        id:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        rateLimit:
+          format: int32
+          type: integer
+        uid:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        url:
+          format: uri
+          type: string
+        version:
+          format: int32
+          type: integer
+      required:
+      - channels
+      - createdAt
+      - description
+      - disabled
+      - filterTypes
+      - id
+      - metadata
+      - rateLimit
+      - uid
+      - updatedAt
+      - url
+      - version
+      type: object
+    WebhookEndpointInJSON:
+      properties:
+        channels:
+          items:
+            type: string
+          type: array
+        description:
+          type: string
+        disabled:
+          type: boolean
+        filterTypes:
+          items:
+            type: string
+          type: array
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        rateLimit:
+          format: int32
+          type: integer
+        secret:
+          type: string
+        uid:
+          type: string
+        url:
+          format: uri
+          type: string
+        version:
+          format: int32
+          type: integer
+      required:
+      - channels
+      - description
+      - disabled
+      - filterTypes
+      - metadata
+      - rateLimit
+      - secret
+      - uid
+      - url
+      - version
+      type: object
+    ApplicationIDJSON:
+      properties:
+        application_id:
+          type: string
+      required:
+      - application_id
+      type: object
+    anyJSON: {}
+    WebhookEndpointIDJSON:
+      properties:
+        webhook_endpoint_id:
+          type: string
+      required:
+      - webhook_endpoint_id
+      type: object
+    WebhookAppOutJSON:
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        rateLimit:
+          format: int32
+          type: integer
+        uid:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - id
+      - metadata
+      - name
+      - rateLimit
+      - uid
+      - updatedAt
+      type: object
+    ErrorJSON:
+      properties:
+        key:
+          additionalProperties:
+            description: A map of id field to id identifying the object the error is about.
+            type: string
+          type: object
+        message:
+          description: A human readable message describing the error.
+          type: string
+        validations:
+          items:
+            $ref: '#/components/schemas/ValidationJSON'
+          type: array
+      required:
+      - message
+      title: Error
+      type: object
+    FieldTypesJSON:
+      anyOf:
+      - format: binary
+        title: Binary Field
+        type: string
+      - title: Boolean Field
+        type: boolean
+      - format: binary
+        maxLength: 1
+        minLength: 1
+        title: Byte Field
+        type: string
+      - title: Integer Field
+        type: integer
+      - format: int32
+        title: Integer32 Field
+        type: integer
+      - format: int64
+        title: Integer64 Field
+        type: integer
+      - format: double
+        title: Double Field
+        type: number
+      - format: uuid
+        title: Banyan ID
+        type: string
+      - format: uri
+        title: URI
+        type: string
+      - format: date-time
+        title: Timestamp
+        type: string
+      - format: decimal
+        minLength: 1
+        title: Amount
+        type: string
+  securitySchemes:
+    basic:
+      scheme: basic
+      type: http
+    bearerToken:
+      flows:
+        clientCredentials:
+          refreshUrl: /oauth/refresh
+          scopes: {}
+          tokenUrl: /oauth/token
+      type: oauth2
+x-provenance:
+  method: searched
+  source: https://developers.banyan.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.banyan.com/reference/create-webhook-application.md
+  - https://developers.banyan.com/reference/create-webhook-endpoint.md
+  - https://developers.banyan.com/reference/delete-webhook-application.md
+  - https://developers.banyan.com/reference/delete-webhook-endpoint.md
+  - https://developers.banyan.com/reference/execute-tag-counter-query.md
+  - https://developers.banyan.com/reference/fetch-a-transaction.md
+  - https://developers.banyan.com/reference/get-webhook-endpoints-all.md
+  - https://developers.banyan.com/reference/get-webhook-event-types.md
+  - https://developers.banyan.com/reference/oauth-token.md
+  - https://developers.banyan.com/reference/receipt-search.md
+  - https://developers.banyan.com/reference/retrieve-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-a-receipt.md
+  - https://developers.banyan.com/reference/retrieve-all-campaigns.md
+  - https://developers.banyan.com/reference/retrieve-all-offers-under-a-campaign.md
+  - https://developers.banyan.com/reference/retrieve-an-offer-activation.md
+  - https://developers.banyan.com/reference/retrieve-an-offer.md
+  - https://developers.banyan.com/reference/retrieve-history.md
+  - https://developers.banyan.com/reference/retrieve-match-merchant-service-provider.md
+  - https://developers.banyan.com/reference/retrieve-match.md
+  - https://developers.banyan.com/reference/retrieve-offer-activations-for-offer-id.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption-history.md
+  - https://developers.banyan.com/reference/retrieve-offer-redemption.md
+  - https://developers.banyan.com/reference/retrieve-webhook-application.md
+  - https://developers.banyan.com/reference/retrieve-webhook-endpoint.md
+  - https://developers.banyan.com/reference/search-offer-activations.md
+  - https://developers.banyan.com/reference/search-offer.md
+  - https://developers.banyan.com/reference/submit-a-campaign.md
+  - https://developers.banyan.com/reference/submit-an-offer-activation.md
+  - https://developers.banyan.com/reference/submit-an-offer.md
+  - https://developers.banyan.com/reference/submit-hotel-receipts.md
+  - https://developers.banyan.com/reference/submit-one-or-more-transactions.md
+  - https://developers.banyan.com/reference/submit-retail-receipts.md
+  - https://developers.banyan.com/reference/update-a-campaign.md
+  - https://developers.banyan.com/reference/update-an-offer-activation.md
+  - https://developers.banyan.com/reference/update-an-offer.md
+  - https://developers.banyan.com/reference/update-webhook-endpoint.md
+  - https://developers.banyan.com/reference/version.md
+  merge:
+    pages: 37
+    deduped: 288
+    conflicts_kept_first: 0
